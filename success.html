@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- General Reset & Typography --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: #fff; 
+            color: #333; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- Header / Back Button --- */
+        .page-header {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+            padding: 10px;
+        }
+
+        /* --- Success Card --- */
+        .success-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 60px 40px;
+            margin-top: 40px;
+            background-color: #fff;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-title {
+            font-weight: 900;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.2;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: #333; /* Dark color as per image */
+            margin-bottom: 30px;
+        }
+
+        .order-details {
+            font-size: 0.85rem;
+            color: #444;
+            line-height: 1.8;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .btn-ok {
+            background-color: #2c2c2c; /* Dark charcoal/black */
+            color: #fff;
+            padding: 12px 60px;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+
+        .btn-ok:hover {
+            background-color: #000;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .success-card {
+                padding: 40px 20px;
+                margin-top: 20px;
+            }
+            .success-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="success-card">
+        <h1 class="success-title">Successful<br>Order</h1>
+        
+        <div class="success-icon">
+            <i class="far fa-check-circle"></i>
+        </div>
+
+        <div class="order-details">
+            Order Date: 2025-10-01<br>
+            Status: Shipped<br>
+            Carrier: Test Carrier<br>
+            Tracking: TEST-TRK-20251001-0001<br>
+            Est. Delivery: 2025-10-07 (Estimated)
+        </div>
+
+        <button class="btn-ok" onclick="window.location.href='#'">OK</button>
+    </div>
+
+</body>
+</html>

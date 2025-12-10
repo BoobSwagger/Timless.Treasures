@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- General Reset & Typography --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: #fff; 
+            color: #333; 
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 800px; /* Constrain width for the card look */
+            padding: 40px 20px;
+        }
+
+        /* --- Header --- */
+        .checkout-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 0;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .checkout-header h1 {
+            font-family: 'Lato', sans-serif; /* Using Lato bold for 'Checkout' as per image */
+            font-weight: 900;
+            font-size: 1.8rem;
+            text-transform: capitalize;
+        }
+
+        /* --- Content Cards --- */
+        .content-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .card-label {
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        /* --- Address Section --- */
+        .address-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .address-info {
+            display: flex;
+            gap: 15px;
+            max-width: 70%;
+        }
+
+        .icon-marker {
+            font-size: 1.2rem;
+            color: #111;
+            margin-top: 2px;
+        }
+
+        .address-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* --- Payment Section --- */
+        .payment-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .payment-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-card {
+            font-size: 1.2rem;
+            color: #111;
+        }
+
+        .card-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-number {
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .card-type {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        /* --- Buttons (Change Address / Use Other Card) --- */
+        .btn-gray-pill {
+            background-color: #dcdcdc; /* Light gray from image */
+            color: #444;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif; /* Serif font for buttons as per style */
+        }
+
+        /* --- Amount Section --- */
+        .amount-details {
+            margin-bottom: 20px;
+        }
+
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .amount-row span:last-child {
+            color: #000;
+            font-weight: 900;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 15px 0;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 30px;
+        }
+
+        /* --- Place Order Button --- */
+        .btn-place-order {
+            display: block;
+            margin: 0 auto;
+            background-color: #2c2c2c; /* Dark charcoal/black */
+            color: #fff;
+            padding: 12px 40px;
+            border-radius: 25px;
+            border: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-place-order:hover {
+            background-color: #000;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .address-row, .payment-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .btn-gray-pill {
+                align-self: flex-end;
+            }
+            .address-info {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+        <header class="checkout-header">
+            <button class="back-btn" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1>Checkout</h1>
+        </header>
+
+        <div class="content-card">
+            <h2 class="card-label">Deliver To</h2>
+            <div class="address-row">
+                <div class="address-info">
+                    <i class="fas fa-map-marker-alt icon-marker"></i>
+                    <p class="address-text">
+                        Dr Jose Rizal St, Oroquieta City,<br>
+                        7207 Misamis Occidental
+                    </p>
+                </div>
+                <button class="btn-gray-pill">Change Address</button>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="card-label">Payment Method</h2>
+            <div class="payment-row">
+                <div class="payment-info">
+                    <i class="fas fa-wallet icon-card"></i>
+                    <div class="card-details">
+                        <span class="card-number">**** **** **** 1234</span>
+                        <span class="card-type">Gcash Card</span>
+                    </div>
+                </div>
+                <button class="btn-gray-pill">Use Other Card</button>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="card-label">Amount</h2>
+            
+            <div class="amount-details">
+                <div class="amount-row">
+                    <span>Item Total</span>
+                    <span>₱ 3,989,050</span>
+                </div>
+                <div class="amount-row">
+                    <span>Delivery Fee</span>
+                    <span>Free</span>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="total-row">
+                <span>Total</span>
+                <span>₱ 3,989,050</span>
+            </div>
+
+            <button class="btn-place-order">Place Order</button>
+        </div>
+
+    </div>
+
+</body>
+</html>

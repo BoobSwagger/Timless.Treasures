@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolex Collection - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- General Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; background-color: #fff; color: #333; }
+        
+        /* --- Typography --- */
+        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- Header (Listing Page Style) --- */
+        header { 
+            padding: 20px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .header-left { font-size: 1.5rem; cursor: pointer; }
+        .header-title h1 { font-size: 3rem; font-weight: 400; text-align: center; }
+        .header-right i { font-size: 1.2rem; margin-left: 20px; cursor: pointer; color: #555; }
+
+        /* --- Product Grid Layouts --- */
+        .section-title { font-size: 1.5rem; margin: 40px 0 20px 0; padding-left: 40px; color: #333; font-family: 'Playfair Display', serif; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            padding: 0 40px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: left;
+            transition: box-shadow 0.3s ease;
+        }
+        .product-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+            mix-blend-mode: multiply; /* Helps blend white bg images */
+        }
+
+        .p-name { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 5px; color: #000; font-weight: bold; }
+        .p-desc { font-size: 0.85rem; color: #666; margin-bottom: 10px; line-height: 1.4; }
+        .p-price { font-size: 0.9rem; font-weight: bold; color: #333; }
+
+        /* --- Footer (Reused) --- */
+        .contact-section { padding: 40px 0; text-align: center; }
+        .contact-pills { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+        .pill { border: 1px solid #ddd; padding: 8px 20px; border-radius: 25px; font-size: 0.8rem; display: flex; align-items: center; gap: 10px; }
+        .copyright { font-size: 0.7rem; color: #666; }
+
+        footer { background-color: #000; color: #fff; padding: 50px 20px; }
+        .footer-content { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+        .footer-logo h2 { font-family: 'Cinzel', serif; color: #888; }
+        .footer-links { flex: 2; display: flex; justify-content: space-around; }
+        .footer-col h4 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-col ul li { margin-bottom: 10px; font-size: 0.8rem; color: #ccc; }
+        .map-container { width: 100%; max-width: 1200px; margin: 40px auto 0; height: 180px; background-color: #eee; border-radius: 10px; overflow: hidden; }
+        .map-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-grid { grid-template-columns: 1fr; }
+            .header-title h1 { font-size: 2rem; }
+            .footer-content { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="header-title">
+            <h1>Rolex Collection</h1>
+        </div>
+        <div class="header-right">
+            <i class="fas fa-shopping-cart"></i>
+            <i class="far fa-user"></i>
+        </div>
+    </header>
+
+    <h2 class="section-title">Best Sellers</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=300" alt="Daytona">
+            <div class="p-name">Rolex Daytona 116520 White Dial Stainless Steel Mens Watch</div>
+            <div class="p-price">PHP 1,158,000</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1620625515032-608130563bee?auto=format&fit=crop&q=80&w=300" alt="GMT Master II">
+            <div class="p-name">GMT Master II</div>
+            <div class="p-desc">Oyster, 40 mm, Oystersteel<br>Reference 126710BLNR</div>
+            <div class="p-price">PHP 650,000</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1526045431048-f857369b2d87?auto=format&fit=crop&q=80&w=300" alt="Submariner">
+            <div class="p-name">Rolex Submariner 116613 Two Tone Black Ceramic</div>
+            <div class="p-price">PHP 748,000</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Top Searches</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?auto=format&fit=crop&q=80&w=300" alt="Sea-Dweller">
+            <div class="p-name">Sea-Dweller</div>
+            <div class="p-desc">Oyster, 43 mm, Oystersteel<br>Reference 126600</div>
+            <div class="p-price">PHP 790,000</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1623998021450-85c29c644e0d?auto=format&fit=crop&q=80&w=300" alt="Oyster Perpetual">
+            <div class="p-name">Oyster Perpetual 41</div>
+            <div class="p-desc">Oyster, 41 mm, Oystersteel<br>Reference 124300</div>
+            <div class="p-price">PHP 382,500</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?auto=format&fit=crop&q=80&w=300" alt="Submariner Date">
+            <div class="p-name">Submariner Date</div>
+            <div class="p-desc">Oyster, 41 mm, Oystersteel<br>Reference 126610LV</div>
+            <div class="p-price">PHP 644,000</div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&q=80&w=300" alt="Daytona Rose">
+            <div class="p-name">Cosmograph Daytona</div>
+            <div class="p-desc">Oyster, 40 mm, Everose gold<br>Reference 126505</div>
+            <div class="p-price">PHP 2,977,500</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1639031730052-598d9e605282?auto=format&fit=crop&q=80&w=300" alt="Daytona Diamonds">
+            <div class="p-name">Cosmograph Daytona</div>
+            <div class="p-desc">Oyster, 40 mm, white gold and diamonds<br>Reference 126509</div>
+            <div class="p-price">PHP 4,047,000</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&q=80&w=300" alt="Daytona Platinum">
+            <div class="p-name">Cosmograph Daytona</div>
+            <div class="p-desc">Oyster, 40 mm, platinum<br>Reference 126506</div>
+            <div class="p-price">PHP 4,551,500</div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80&w=300" alt="GMT Master II Rose">
+            <div class="p-name">GMT-Master II</div>
+            <div class="p-desc">Oyster, 40 mm, Oystersteel and Everose gold<br>Reference 126711CHNR</div>
+            <div class="p-price">PHP 1,045,500</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&q=80&w=300" alt="GMT Master II Pepsi">
+            <div class="p-name">GMT-Master II</div>
+            <div class="p-desc">Oyster, 40 mm, Oystersteel<br>Reference 126710BLRO</div>
+            <div class="p-price">PHP 650,000</div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?auto=format&fit=crop&q=80&w=300" alt="Daytona Gold">
+            <div class="p-name">Cosmograph Daytona</div>
+            <div class="p-desc">Oyster, 40 mm, Oystersteel and yellow gold<br>Reference 126503</div>
+            <div class="p-price">PHP 1,276,000</div>
+        </div>
+    </div>
+
+    <section class="contact-section">
+        <div class="contact-pills">
+            <div class="pill"><i class="fas fa-phone"></i> +639065566717</div>
+            <div class="pill"><i class="fas fa-envelope"></i> jhonm8816@gmail.com</div>
+            <div class="pill"><i class="fab fa-facebook"></i> TimelessTreasuresOfficial</div>
+        </div>
+        <p class="copyright">© 2025 Timeless Treasures. All rights reserved.</p>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>TIMELESS</h2>
+                <span>Treasures</span>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li>Home</li>
+                        <li>Pages</li>
+                        <li>About Us</li>
+                        <li>Services</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Link</h4>
+                    <ul>
+                        <li>Contact Us</li>
+                        <li>FAQs</li>
+                        <li>Pages</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li>Home</li>
+                        <li>Contact Us</li>
+                        <li>Blog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="map-container">
+            <img src="https://mt1.google.com/vt/lyrs=m&x=131&y=66&z=7" alt="Google Map">
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- General Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: #fff; 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* --- Back Button --- */
+        .back-btn {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* --- Main Card Container --- */
+        .auth-container {
+            width: 900px;
+            height: 550px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            overflow: hidden; /* Ensures rounded corners clip content */
+        }
+
+        /* --- Left Side (Welcome / Sign In) --- */
+        .left-panel {
+            flex: 0.4;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        .welcome-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #ccc;
+            font-weight: 300;
+            max-width: 250px;
+        }
+
+        .btn-signin-ghost {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 12px 40px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-signin-ghost:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* --- Right Side (Create Account Form) --- */
+        .right-panel {
+            flex: 0.6;
+            background-color: #dcdcdc; /* Light grey matching image */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .form-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #000;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #222; /* Dark icons */
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .social-icon:hover { transform: scale(1.1); }
+
+        .form-subtitle {
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        /* Inputs */
+        .input-group {
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid #777;
+            padding: 12px 15px 12px 45px; /* Left padding for icon */
+            font-size: 0.9rem;
+            border-radius: 5px;
+            outline: none;
+            color: #333;
+        }
+        
+        .input-group input::placeholder {
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Sign Up Button */
+        .btn-signup {
+            margin-top: 20px;
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #aaa;
+            padding: 12px 50px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .btn-signup:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+                width: 90%;
+                height: auto;
+            }
+            .left-panel, .right-panel {
+                flex: none;
+                width: 100%;
+                padding: 30px 20px;
+            }
+            .left-panel { order: 2; } /* Put welcome at bottom on mobile if desired, or keep top */
+        }
+    </style>
+</head>
+<body>
+
+    <button class="back-btn" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="auth-container">
+        
+        <div class="left-panel">
+            <h2 class="welcome-title">WELCOME</h2>
+            <p class="welcome-text">
+                to keep us connected with us please login with your personal info
+            </p>
+            <button class="btn-signin-ghost">Sign In</button>
+        </div>
+
+        <div class="right-panel">
+            <h1 class="form-title">Create Account</h1>
+            
+            <div class="social-icons">
+                <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+            </div>
+
+            <p class="form-subtitle">or use your email for registration:</p>
+
+            <div class="input-group">
+                <i class="far fa-user input-icon"></i>
+                <input type="text" placeholder="Name">
+            </div>
+
+            <div class="input-group">
+                <i class="far fa-envelope input-icon"></i>
+                <input type="email" placeholder="Email">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i> <input type="password" placeholder="Password">
+            </div>
+
+            <button class="btn-signup">Sign Up</button>
+        </div>
+
+    </div>
+
+</body>
+</html>
