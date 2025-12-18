@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth & OTP Test - Rolex Store API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-group {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #f57c00;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .response-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .response-box.success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .response-box.error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        .response-box.info {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        .response-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .response-content {
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .otp-display {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .otp-code {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            letter-spacing: 8px;
+            font-family: monospace;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Auth & OTP Test</h1>
+        <p class="subtitle">Test your Rolex Store API</p>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('signup')">📝 Sign Up</button>
+            <button class="tab" onclick="switchTab('otp')">🔑 OTP Test</button>
+        </div>
+
+        <!-- Sign Up Tab -->
+        <div id="signup" class="tab-content active">
+            <div class="info-box">
+                <strong>📌 Step 1:</strong> Create a user account first before testing OTP!
+            </div>
+
+            <div class="form-group">
+                <label for="signupUsername">👤 Username</label>
+                <input type="text" id="signupUsername" placeholder="johndoe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="signupEmail">📧 Email Address</label>
+                <input type="email" id="signupEmail" placeholder="john@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="signupPassword">🔒 Password</label>
+                <input type="password" id="signupPassword" placeholder="Min 6 characters" required>
+            </div>
+
+            <div class="form-group">
+                <label for="signupFullName">📛 Full Name (Optional)</label>
+                <input type="text" id="signupFullName" placeholder="John Doe">
+            </div>
+
+            <button class="btn-primary" style="width: 100%" onclick="registerUser()">
+                ✨ Create Account
+            </button>
+
+            <div style="margin-top: 15px; text-align: center; color: #666; font-size: 14px;">
+                After creating account, switch to OTP Test tab →
+            </div>
+        </div>
+
+        <!-- OTP Test Tab -->
+        <div id="otp" class="tab-content">
+            <div class="info-box">
+                <strong>📌 Step 2:</strong> Use the email from your registered account!
+            </div>
+
+            <div class="form-group">
+                <label for="otpEmail">📧 Email Address</label>
+                <input type="email" id="otpEmail" placeholder="user@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="purpose">🎯 Purpose</label>
+                <select id="purpose">
+                    <option value="verification">Email Verification</option>
+                    <option value="password_reset">Password Reset</option>
+                    <option value="login">Login Authentication</option>
+                </select>
+            </div>
+
+            <div class="btn-group grid-2">
+                <button class="btn-primary" onclick="sendOTP()">📤 Send OTP</button>
+                <button class="btn-secondary" onclick="resendOTP()">🔄 Resend</button>
+            </div>
+
+            <!-- OTP Display -->
+            <div class="otp-display" id="otpDisplay">
+                <div style="font-size: 14px; color: #666; margin-bottom: 10px;">Your OTP Code:</div>
+                <div class="otp-code" id="otpCode">------</div>
+                <div style="font-size: 12px; color: #999; margin-top: 10px;">Expires in 10 minutes</div>
+            </div>
+
+            <div class="form-group">
+                <label for="otpInput">🔑 Enter OTP Code</label>
+                <input type="text" id="otpInput" placeholder="123456" maxlength="6" pattern="[0-9]{6}">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-success" onclick="verifyOTP()">✅ Verify OTP</button>
+                <button class="btn-warning" onclick="debugOTP()">🐛 Get OTP (Debug)</button>
+                <button class="btn-danger" onclick="cancelOTP()">❌ Cancel OTP</button>
+            </div>
+        </div>
+
+        <!-- Response Box -->
+        <div class="response-box" id="responseBox">
+            <div class="response-title" id="responseTitle"></div>
+            <div class="response-content" id="responseContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://relo-24j8.onrender.com/api';
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+
+            // Hide response box when switching tabs
+            document.getElementById('responseBox').style.display = 'none';
+        }
+
+        function showResponse(type, title, content) {
+            const box = document.getElementById('responseBox');
+            const titleEl = document.getElementById('responseTitle');
+            const contentEl = document.getElementById('responseContent');
+
+            box.className = 'response-box ' + type;
+            titleEl.textContent = title;
+            contentEl.textContent = typeof content === 'object' 
+                ? JSON.stringify(content, null, 2) 
+                : content;
+            
+            box.style.display = 'block';
+            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function hideOTPDisplay() {
+            document.getElementById('otpDisplay').style.display = 'none';
+        }
+
+        function showOTPDisplay(otp) {
+            document.getElementById('otpCode').textContent = otp;
+            document.getElementById('otpDisplay').style.display = 'block';
+            document.getElementById('otpInput').value = otp;
+        }
+
+        // ==================== REGISTRATION ====================
+        async function registerUser() {
+            const username = document.getElementById('signupUsername').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const fullName = document.getElementById('signupFullName').value.trim();
+
+            if (!username || !email || !password) {
+                showResponse('error', '❌ Error', 'Please fill in all required fields');
+                return;
+            }
+
+            if (password.length < 6) {
+                showResponse('error', '❌ Error', 'Password must be at least 6 characters');
+                return;
+            }
+
+            showResponse('info', '⏳ Creating Account...', 'Please wait...');
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username,
+                        email,
+                        password,
+                        full_name: fullName || undefined
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResponse('success', '✅ Account Created!', data);
+                    
+                    // Auto-fill email in OTP tab
+                    document.getElementById('otpEmail').value = email;
+                    
+                    // Show message to switch to OTP tab
+                    setTimeout(() => {
+                        if (confirm('Account created! Switch to OTP Test tab?')) {
+                            document.querySelector('.tab:nth-child(2)').click();
+                        }
+                    }, 1500);
+                } else {
+                    showResponse('error', '❌ Registration Failed', data);
+                }
+            } catch (error) {
+                showResponse('error', '❌ Network Error', error.message);
+            }
+        }
+
+        // ==================== OTP FUNCTIONS ====================
+        async function sendOTP() {
+            const email = document.getElementById('otpEmail').value.trim();
+            const purpose = document.getElementById('purpose').value;
+
+            if (!email) {
+                showResponse('error', '❌ Error', 'Please enter an email address');
+                return;
+            }
+
+            hideOTPDisplay();
+            showResponse('info', '⏳ Sending OTP...', 'Please wait...');
+
+            try {
+                const response = await fetch(`${API_BASE}/otp/send`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, purpose })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResponse('success', '✅ OTP Sent!', data);
+                    setTimeout(() => debugOTP(true), 500);
+                } else {
+                    showResponse('error', '❌ Error', data);
+                }
+            } catch (error) {
+                showResponse('error', '❌ Network Error', error.message);
+            }
+        }
+
+        async function verifyOTP() {
+            const email = document.getElementById('otpEmail').value.trim();
+            const otp = document.getElementById('otpInput').value.trim();
+            const purpose = document.getElementById('purpose').value;
+
+            if (!email || !otp) {
+                showResponse('error', '❌ Error', 'Please enter both email and OTP code');
+                return;
+            }
+
+            showResponse('info', '⏳ Verifying...', 'Please wait...');
+
+            try {
+                const response = await fetch(`${API_BASE}/otp/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, otp, purpose })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    showResponse('success', '✅ Verified!', data);
+                    hideOTPDisplay();
+                    document.getElementById('otpInput').value = '';
+                } else {
+                    showResponse('error', '❌ Verification Failed', data);
+                }
+            } catch (error) {
+                showResponse('error', '❌ Network Error', error.message);
+            }
+        }
+
+        async function resendOTP() {
+            const email = document.getElementById('otpEmail').value.trim();
+            const purpose = document.getElementById('purpose').value;
+
+            if (!email) {
+                showResponse('error', '❌ Error', 'Please enter an email address');
+                return;
+            }
+
+            hideOTPDisplay();
+            showResponse('info', '⏳ Resending...', 'Please wait...');
+
+            try {
+                const response = await fetch(`${API_BASE}/otp/resend`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, purpose })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResponse('success', '✅ Resent!', data);
+                    setTimeout(() => debugOTP(true), 500);
+                } else {
+                    showResponse('error', '❌ Error', data);
+                }
+            } catch (error) {
+                showResponse('error', '❌ Network Error', error.message);
+            }
+        }
+
+        async function cancelOTP() {
+            const email = document.getElementById('otpEmail').value.trim();
+            const purpose = document.getElementById('purpose').value;
+
+            if (!email) {
+                showResponse('error', '❌ Error', 'Please enter an email address');
+                return;
+            }
+
+            hideOTPDisplay();
+            showResponse('info', '⏳ Cancelling...', 'Please wait...');
+
+            try {
+                const response = await fetch(`${API_BASE}/otp/cancel/${email}?purpose=${purpose}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResponse('success', '✅ Cancelled', data);
+                    document.getElementById('otpInput').value = '';
+                } else {
+                    showResponse('error', '❌ Error', data);
+                }
+            } catch (error) {
+                showResponse('error', '❌ Network Error', error.message);
+            }
+        }
+
+        async function debugOTP(silent = false) {
+            const email = document.getElementById('otpEmail').value.trim();
+            const purpose = document.getElementById('purpose').value;
+
+            if (!email) {
+                showResponse('error', '❌ Error', 'Please enter an email address');
+                return;
+            }
+
+            if (!silent) {
+                showResponse('info', '⏳ Getting OTP...', 'Please wait...');
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/otp/debug/${email}?purpose=${purpose}`);
+                const data = await response.json();
+
+                if (response.ok && data.success && data.data && data.data.otp) {
+                    showResponse('success', '🐛 Debug Info', data);
+                    showOTPDisplay(data.data.otp);
+                } else {
+                    if (!silent) {
+                        showResponse('error', '❌ No OTP Found', 
+                            data.message || 'No OTP found. Try sending one first.');
+                    }
+                }
+            } catch (error) {
+                if (!silent) {
+                    showResponse('error', '❌ Debug Error', 
+                        'Debug endpoint might be disabled in production.');
+                }
+            }
+        }
+
+        // Auto-format OTP input
+        document.getElementById('otpInput').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Enter key handlers
+        document.getElementById('otpInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyOTP();
+        });
+
+        document.getElementById('signupPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') registerUser();
+        });
+    </script>
+</body>
+</html>
