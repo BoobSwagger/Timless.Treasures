@@ -216,8 +216,34 @@
     </footer>
 
     <!-- Include your JS file -->
+     <!-- FIXED: Load auth.js FIRST, before any other scripts -->
+<script src="./logIns/js/auth.js"></script>
+
+<!-- Redirect sellers immediately -->
+<script>
+    // Check localStorage directly - faster than waiting for Auth object
+    (function() {
+        const user = localStorage.getItem('user');
+        if (user) {
+            try {
+                const userData = JSON.parse(user);
+                if (userData.role && userData.role.toLowerCase() === 'seller') {
+                    console.log('🚫 Seller detected, redirecting to dashboard...');
+                    window.location.href = '/seller/seller_dashboard.html';
+                }
+            } catch (e) {
+                console.warn('Error checking user role:', e);
+            }
+        }
+    })();
+</script>
+
+<!-- Then load other scripts -->
+<script src="./js/dashboard.js"></script>
+<script src="./js/cart-navigation.js"></script>
     <script src="./js/dashboard.js"></script>
     <script src="./js/cart-navigation.js"></script>
+
 
     <script>
         // Render products to the page

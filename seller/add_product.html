@@ -290,27 +290,7 @@
         </div>
     </footer>
 
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    const preview = document.getElementById('imagePreview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        document.getElementById('productForm').addEventListener('submit', e => {
-            e.preventDefault();
-            alert('Product added successfully!');
-            e.target.reset();
-            document.getElementById('imagePreview').style.display = 'none';
-        });
-    </script>
+<script src="./js/add_product.js"></script>
 
 </body>
 </html>

@@ -63,7 +63,7 @@
             font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-family: 'Cinzel', serif; /* Using Cinzel for that specific outline look */
+            font-family: 'Cinzel', serif;
             color: #333;
             text-shadow: 1px 1px 0 #888;
         }
@@ -77,10 +77,33 @@
             margin-top: -10px;
         }
 
+        .header-icons {
+            display: flex;
+            gap: 15px;
+        }
+
         .header-icons i {
             font-size: 1.2rem;
-            margin-left: 15px;
             cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .header-icons i:hover {
+            color: #888;
+        }
+
+        .icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .icon-link:hover {
+            background-color: #f5f5f5;
         }
 
         .nav-bar {
@@ -102,6 +125,28 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.1rem;
             letter-spacing: 1px;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ddd;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .search-bar {
@@ -118,11 +163,13 @@
             color: #ccc;
             outline: none;
             font-size: 0.9rem;
+            width: 200px;
         }
         
         .search-bar i {
             color: #ccc;
             font-size: 0.9rem;
+            margin-right: 5px;
         }
 
         /* --- Hero Section --- */
@@ -157,6 +204,13 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-shop:hover {
+            background-color: #c8c8c8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
 
         .hero-image {
@@ -167,8 +221,8 @@
         .hero-image img {
             max-width: 100%;
             height: auto;
-            /* Placeholder styling to mimic the watch in image */
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+            border-radius: 10px;
         }
 
         /* --- Brand Banner --- */
@@ -189,7 +243,7 @@
         }
         
         .brand-list span:last-child {
-             font-weight: bold; /* Patek styling */
+             font-weight: bold;
              font-style: normal;
         }
 
@@ -209,19 +263,27 @@
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 Columns */
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-bottom: 40px;
         }
 
         .product-card {
             text-align: left;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
         }
 
         .product-card img {
             width: 100%;
-            height: auto;
+            height: 250px;
+            object-fit: cover;
             margin-bottom: 15px;
+            border-radius: 5px;
         }
 
         .product-name {
@@ -235,6 +297,7 @@
         .product-price {
             font-size: 0.9rem;
             color: #000;
+            font-weight: bold;
         }
 
         .btn-view-all {
@@ -243,6 +306,13 @@
             padding: 10px 30px;
             cursor: pointer;
             font-family: 'Lato', sans-serif;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-all:hover {
+            background-color: #d0d0d0;
+            border-color: #bbb;
         }
 
         /* --- Browse By Style --- */
@@ -284,9 +354,14 @@
             display: flex;
             align-items: flex-start;
             padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        /* Placeholder images for styles */
+        .style-card:hover {
+            transform: scale(1.02);
+        }
+
         .style-casual { background-image: url('https://images.unsplash.com/photo-1623998021450-85c29c644e0d?auto=format&fit=crop&q=80&w=500'); }
         .style-formal { background-image: url('https://images.unsplash.com/photo-1549896792-748957801d0d?auto=format&fit=crop&q=80&w=500'); }
         .style-party { background-image: url('https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&q=80&w=500'); }
@@ -305,7 +380,12 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.2); /* Slight overlay for readability */
+            background: rgba(0,0,0,0.2);
+            transition: background 0.3s ease;
+        }
+
+        .style-card:hover::after {
+            background: rgba(0,0,0,0.1);
         }
 
         /* --- Contact Info --- */
@@ -329,6 +409,12 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            background-color: #f5f5f5;
+            border-color: #bbb;
         }
 
         .copyright {
@@ -377,6 +463,12 @@
             margin-bottom: 10px;
             font-size: 0.8rem;
             color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li:hover {
+            color: #fff;
         }
 
         .map-container {
@@ -400,18 +492,56 @@
         }
 
         /* --- Responsive Tweaks --- */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero, .footer-content, .styles-grid {
+            .hero {
                 flex-direction: column;
                 text-align: center;
             }
             .product-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .hero-text { padding-right: 0; }
-            .nav-links { display: none; } /* Simplified for mobile */
-            .brand-list { flex-wrap: wrap; gap: 20px; }
-            .styles-grid { grid-template-columns: 1fr; }
+            .hero-text { 
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            .brand-list { 
+                flex-wrap: wrap; 
+                gap: 20px;
+                font-size: 1.5rem;
+            }
+            .styles-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .contact-pills {
+                flex-direction: column;
+                align-items: center;
+            }
+            .search-bar input {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .search-bar input {
+                width: 120px;
+            }
+            .top-bar {
+                padding: 15px 20px;
+            }
         }
     </style>
 </head>
@@ -427,15 +557,20 @@
                 <span>Treasures</span>
             </div>
             <div class="header-icons">
-                <i class="fas fa-shopping-cart"></i>
-                <i class="far fa-user"></i>
+                <a href="customer/cart.html" class="icon-link">
+                    <i class="fas fa-shopping-cart" title="Cart"></i>
+                </a>
+                <a href="logIns/signIn.html" class="icon-link">
+                    <i class="far fa-user" title="Sign In"></i>
+                </a>
             </div>
         </div>
         <nav class="nav-bar">
             <ul class="nav-links">
-                <li><a href="#">On sale</a></li>
-                <li><a href="#">New Arrivals</a></li>
-                <li><a href="#">Brands</a></li>
+                <li><a href="customer/product_listing.html?category=sale">On sale</a></li>
+                <li><a href="customer/product_listing.html?category=new">New Arrivals</a></li>
+                <li><a href="customer/product_listing.html?category=brands">Brands</a></li>
+                <li><a href="seller/seller_dashboard.html">Sell With Us</a></li>
             </ul>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
@@ -447,7 +582,7 @@
     <section class="hero">
         <div class="hero-text">
             <h2>FIND WATCHES<br>THAT MATCH<br>YOUR STYLE</h2>
-            <button class="btn-shop">Shop Now</button>
+            <button class="btn-shop" onclick="window.location.href='customer/product_listing.html'">Shop Now</button>
         </div>
         <div class="hero-image">
             <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?auto=format&fit=crop&q=80&w=600" alt="Rolex Submariner Green">
@@ -466,44 +601,44 @@
     <section class="new-arrivals">
         <h2 class="section-title">New Arrival</h2>
         <div class="product-grid">
-            <div class="product-card">
+            <div class="product-card" onclick="window.location.href='customer/product_details.html?id=1'">
                 <img src="https://images.unsplash.com/photo-1620625515032-608130563bee?auto=format&fit=crop&q=80&w=300" alt="Watch 1">
                 <p class="product-name">GMT Master II Oyster, 40 mm, white gold<br>Reference 126719BLRO</p>
                 <p class="product-price">PHP 2,807,500</p>
             </div>
-            <div class="product-card">
+            <div class="product-card" onclick="window.location.href='customer/product_details.html?id=2'">
                 <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=300" alt="Watch 2">
                 <p class="product-name">Rolex Daytona 116520 White Dial Stainless Steel Mens Watch</p>
                 <p class="product-price">PHP 1,158,000</p>
             </div>
-            <div class="product-card">
+            <div class="product-card" onclick="window.location.href='customer/product_details.html?id=3'">
                 <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&q=80&w=300" alt="Watch 3">
                 <p class="product-name">Rolex Daytona 116520 White Dial Stainless Steel Mens Watch</p>
                 <p class="product-price">PHP 1,158,000</p>
             </div>
-            <div class="product-card">
+            <div class="product-card" onclick="window.location.href='customer/product_details.html?id=4'">
                 <img src="https://images.unsplash.com/photo-1526045431048-f857369b2d87?auto=format&fit=crop&q=80&w=300" alt="Watch 4">
                 <p class="product-name">Rolex Daytona 116520 White Dial Stainless Steel Mens Watch</p>
                 <p class="product-price">PHP 1,158,000</p>
             </div>
         </div>
-        <button class="btn-view-all">View all</button>
+        <button class="btn-view-all" onclick="window.location.href='customer/product_listing.html'">View all</button>
     </section>
 
     <section class="styles-section">
         <div class="styles-container">
             <h2>BROWSE BY WATCH STYLE</h2>
             <div class="styles-grid">
-                <div class="style-card style-casual">
+                <div class="style-card style-casual" onclick="window.location.href='customer/product_listing.html?style=casual'">
                     <span class="style-label">Casual</span>
                 </div>
-                <div class="style-card style-formal">
+                <div class="style-card style-formal" onclick="window.location.href='customer/product_listing.html?style=formal'">
                     <span class="style-label">Formal</span>
                 </div>
-                <div class="style-card style-party">
+                <div class="style-card style-party" onclick="window.location.href='customer/product_listing.html?style=party'">
                     <span class="style-label">Party</span>
                 </div>
-                <div class="style-card style-gym">
+                <div class="style-card style-gym" onclick="window.location.href='customer/product_listing.html?style=gym'">
                     <span class="style-label">Gym</span>
                 </div>
             </div>
@@ -529,26 +664,27 @@
                 <div class="footer-col">
                     <h4>Navigation</h4>
                     <ul>
-                        <li>Home</li>
-                        <li>Pages</li>
-                        <li>About Us</li>
-                        <li>Services</li>
+                        <li onclick="window.location.href='index.html'">Home</li>
+                        <li onclick="window.location.href='customer/product_listing.html'">Products</li>
+                        <li onclick="window.location.href='#'">About Us</li>
+                        <li onclick="window.location.href='seller/seller_dashboard.html'">Sell With Us</li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Quick Link</h4>
                     <ul>
-                        <li>Contact Us</li>
-                        <li>FAQs</li>
-                        <li>Pages</li>
+                        <li onclick="window.location.href='#'">Contact Us</li>
+                        <li onclick="window.location.href='#'">FAQs</li>
+                        <li onclick="window.location.href='logIns/signIn.html'">Sign In</li>
+                        <li onclick="window.location.href='logIns/signUp.html'">Sign Up</li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Services</h4>
                     <ul>
-                        <li>Home</li>
-                        <li>Contact Us</li>
-                        <li>Blog</li>
+                        <li onclick="window.location.href='customer/product_listing.html'">Shop</li>
+                        <li onclick="window.location.href='customer/cart.html'">Cart</li>
+                        <li onclick="window.location.href='transactions/orders.html'">Orders</li>
                     </ul>
                 </div>
             </div>
@@ -557,6 +693,57 @@
             <img src="https://mt1.google.com/vt/lyrs=m&x=131&y=66&z=7" alt="Google Map Location">
         </div>
     </footer>
+
+    <script>
+        // Add functionality for the search bar
+        document.querySelector('.search-bar input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.trim();
+                if (searchTerm) {
+                    window.location.href = `customer/product_listing.html?search=${encodeURIComponent(searchTerm)}`;
+                }
+            }
+        });
+
+        // Add click handler for search icon
+        document.querySelector('.search-bar i').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-bar input').value.trim();
+            if (searchTerm) {
+                window.location.href = `customer/product_listing.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        });
+
+        // Add hover effects for menu icon
+        document.querySelector('.menu-icon').addEventListener('click', function() {
+            alert('Mobile menu would open here. In a real implementation, this would show a slide-out menu.');
+        });
+
+        // Add subtle animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe sections for animation
+            const sections = document.querySelectorAll('.new-arrivals, .styles-section, .contact-section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
 
 </body>
 </html>

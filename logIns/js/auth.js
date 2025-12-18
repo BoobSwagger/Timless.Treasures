@@ -98,7 +98,7 @@ function getRoleBasedRedirectUrl() {
     console.log('Getting redirect URL for role:', role);
     
     if (role.toLowerCase() === 'seller') {
-        return '/seller-dashboard.html'; // Update this to your seller dashboard path
+        return './seller/seller_dashboard.html'; // Update this to your seller dashboard path
     } else {
         return '/'; // Customer goes to home/shop page
     }
@@ -447,6 +447,7 @@ async function handleSignInSubmit(event) {
 }
 
 // Handle sign up form submission
+// Handle sign up form submission
 async function handleSignUpSubmit(event) {
     event.preventDefault();
     
@@ -456,7 +457,12 @@ async function handleSignUpSubmit(event) {
     const password = form.querySelector('input[name="password"]').value;
     const confirmPassword = form.querySelector('input[name="confirm-password"]')?.value;
     const fullName = form.querySelector('input[name="full-name"]')?.value.trim();
-    const role = form.querySelector('select[name="role"]')?.value || 'customer';
+    
+    // FIXED: Get role from radio buttons or select dropdown
+    const roleRadio = form.querySelector('input[name="role"]:checked');
+    const roleSelect = form.querySelector('select[name="role"]');
+    const role = roleRadio?.value || roleSelect?.value || 'customer';
+    
     const submitButton = form.querySelector('button[type="submit"]');
     
     // Validation
@@ -498,7 +504,6 @@ async function handleSignUpSubmit(event) {
         showError(result.message);
     }
 }
-
 // =====================================================
 // Auto-initialize
 // =====================================================
