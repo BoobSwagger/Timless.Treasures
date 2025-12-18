@@ -184,14 +184,8 @@ function renderCart() {
 }
 
 // Update Order Summary
+// Update Order Summary
 function updateOrderSummary() {
-    // Only update if summary elements exist (cart page)
-    const summaryElements = document.querySelectorAll('.summary-row');
-    if (!summaryElements || summaryElements.length === 0) {
-        console.log('No summary elements found, skipping update');
-        return;
-    }
-    
     const subtotal = cartData.total || 0;
     const discount = subtotal * 0.05; // 5% discount
     const deliveryFee = 0; // Free delivery
@@ -199,15 +193,33 @@ function updateOrderSummary() {
 
     console.log('Updating order summary:', { subtotal, discount, deliveryFee, total });
 
-    const subtotalEl = document.querySelector('.summary-row:nth-child(1) span:last-child');
-    const discountEl = document.querySelector('.summary-row.discount span:last-child');
-    const deliveryEl = document.querySelector('.summary-row:nth-child(3) span:last-child');
-    const totalEl = document.querySelector('.summary-row.total span:last-child');
+    // Update using IDs for more reliable targeting
+    const subtotalEl = document.getElementById('subtotal-amount');
+    const discountEl = document.getElementById('discount-amount');
+    const deliveryEl = document.getElementById('delivery-amount');
+    const totalEl = document.getElementById('total-amount');
     
-    if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotal);
-    if (discountEl) discountEl.textContent = `- ${formatCurrency(discount)}`;
-    if (deliveryEl) deliveryEl.textContent = deliveryFee === 0 ? 'Free' : formatCurrency(deliveryFee);
-    if (totalEl) totalEl.textContent = formatCurrency(total);
+    if (subtotalEl) {
+        subtotalEl.textContent = formatCurrency(subtotal);
+        console.log('Updated subtotal:', subtotalEl.textContent);
+    }
+    if (discountEl) {
+        discountEl.textContent = `- ${formatCurrency(discount)}`;
+        console.log('Updated discount:', discountEl.textContent);
+    }
+    if (deliveryEl) {
+        deliveryEl.textContent = deliveryFee === 0 ? 'Free' : formatCurrency(deliveryFee);
+        console.log('Updated delivery:', deliveryEl.textContent);
+    }
+    if (totalEl) {
+        totalEl.textContent = formatCurrency(total);
+        console.log('Updated total:', totalEl.textContent);
+    }
+    
+    // If no elements found, we're probably not on cart page
+    if (!subtotalEl && !discountEl && !deliveryEl && !totalEl) {
+        console.log('No summary elements found, skipping order summary update');
+    }
 }
 
 // Update Cart Count in Header

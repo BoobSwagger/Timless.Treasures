@@ -331,24 +331,35 @@
                 </div>
             </div>
 
-           <div class="order-summary">
+         <div class="order-summary">
                 <h3 class="summary-title">Order Summary</h3>
                 <div class="summary-row">
                     <span>Subtotal</span>
-                    <span>PHP 6,368,500</span>
+                    <span id="subtotal-amount">PHP 0</span>
                 </div>
                 <div class="summary-row discount">
                     <span>Discount (-5%)</span>
-                    <span>- PHP 318,425</span>
+                    <span id="discount-amount">- PHP 0</span>
                 </div>
                 <div class="summary-row">
                     <span>Delivery Fee</span>
-                    <span>Free</span>
+                    <span id="delivery-amount">Free</span>
                 </div>
                 <div class="summary-row total">
                     <span>Total</span>
-                    <span>PHP 6,050,075</span>
+                    <span id="total-amount">PHP 0</span>
                 </div>
+                
+                <div class="promo-code">
+                    <input type="text" placeholder="Enter promo code">
+                    <button class="btn-apply">Apply</button>
+                </div>
+                
+                <button class="btn-checkout">
+                    <i class="fas fa-lock"></i>
+                    Proceed to Checkout
+                </button>
+            </div>
         </div>
     </div>
 
