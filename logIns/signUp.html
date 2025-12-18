@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- General Reset --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
@@ -23,7 +22,6 @@
             position: relative;
         }
 
-        /* --- Back Button --- */
         .back-btn {
             position: absolute;
             top: 40px;
@@ -33,20 +31,20 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #333;
+            transition: color 0.3s;
         }
+        .back-btn:hover { color: #000; }
 
-        /* --- Main Card Container --- */
         .auth-container {
             width: 900px;
-            height: 550px;
+            height: 600px;
             background-color: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             display: flex;
-            overflow: hidden; /* Ensures rounded corners clip content */
+            overflow: hidden;
         }
 
-        /* --- Left Side (Welcome / Sign In) --- */
         .left-panel {
             flex: 0.4;
             background-color: #000;
@@ -87,6 +85,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-signin-ghost:hover {
@@ -94,10 +94,9 @@
             color: #000;
         }
 
-        /* --- Right Side (Create Account Form) --- */
         .right-panel {
             flex: 0.6;
-            background-color: #dcdcdc; /* Light grey matching image */
+            background-color: #dcdcdc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -123,7 +122,7 @@
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            background-color: #222; /* Dark icons */
+            background-color: #222;
             color: #fff;
             display: flex;
             align-items: center;
@@ -140,7 +139,6 @@
             margin-bottom: 25px;
         }
 
-        /* Inputs */
         .input-group {
             width: 100%;
             max-width: 350px;
@@ -148,11 +146,12 @@
             margin-bottom: 15px;
         }
 
-        .input-group input {
+        .input-group input,
+        .input-group select {
             width: 100%;
             background-color: transparent;
             border: 1px solid #777;
-            padding: 12px 15px 12px 45px; /* Left padding for icon */
+            padding: 12px 15px 12px 45px;
             font-size: 0.9rem;
             border-radius: 5px;
             outline: none;
@@ -166,6 +165,23 @@
             letter-spacing: 0.5px;
         }
 
+        .input-group select {
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group select option {
+            text-transform: uppercase;
+            background-color: #dcdcdc;
+        }
+
+        .input-group input.error,
+        .input-group select.error {
+            border-color: #e74c3c;
+        }
+
         .input-icon {
             position: absolute;
             left: 15px;
@@ -175,7 +191,55 @@
             font-size: 1rem;
         }
 
-        /* Sign Up Button */
+        .role-selector {
+            margin-bottom: 20px;
+        }
+
+        .role-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .role-option {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #777;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            background-color: transparent;
+        }
+
+        .role-option:hover {
+            border-color: #333;
+            transform: translateY(-2px);
+        }
+
+        .role-option.active {
+            border-color: #000;
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .role-option input[type="radio"] {
+            display: none;
+        }
+
+        .role-option .role-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .role-option .role-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
         .btn-signup {
             margin-top: 20px;
             background-color: #fff;
@@ -187,15 +251,59 @@
             font-size: 0.85rem;
             cursor: pointer;
             text-transform: uppercase;
-            transition: background 0.3s;
+            transition: all 0.3s;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .btn-signup:hover {
             background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        /* --- Responsive --- */
+        .btn-signup:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            display: none;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .message.error {
+            background-color: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+
+        .message.success {
+            background-color: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .auth-container {
                 flex-direction: column;
@@ -207,7 +315,6 @@
                 width: 100%;
                 padding: 30px 20px;
             }
-            .left-panel { order: 2; } /* Put welcome at bottom on mobile if desired, or keep top */
         }
     </style>
 </head>
@@ -222,9 +329,9 @@
         <div class="left-panel">
             <h2 class="welcome-title">WELCOME</h2>
             <p class="welcome-text">
-                to keep us connected with us please login with your personal info
+                To keep connected with us please login with your personal info
             </p>
-            <button class="btn-signin-ghost">Sign In</button>
+            <a href="signin.html" class="btn-signin-ghost">Sign In</a>
         </div>
 
         <div class="right-panel">
@@ -238,24 +345,66 @@
 
             <p class="form-subtitle">or use your email for registration:</p>
 
-            <div class="input-group">
-                <i class="far fa-user input-icon"></i>
-                <input type="text" placeholder="Name">
-            </div>
+            <form id="signupForm">
+                <!-- Role Selection -->
+                <div class="role-selector">
+                    <div class="role-options">
+                        <label class="role-option active" for="role-customer">
+                            <input type="radio" name="role" id="role-customer" value="customer" checked>
+                            <span class="role-icon">🛍️</span>
+                            <span class="role-label">Customer</span>
+                        </label>
+                        <label class="role-option" for="role-seller">
+                            <input type="radio" name="role" id="role-seller" value="seller">
+                            <span class="role-icon">🏪</span>
+                            <span class="role-label">Seller</span>
+                        </label>
+                    </div>
+                </div>
 
-            <div class="input-group">
-                <i class="far fa-envelope input-icon"></i>
-                <input type="email" placeholder="Email">
-            </div>
+                <div class="input-group">
+                    <i class="far fa-user input-icon"></i>
+                    <input type="text" name="username" id="username" placeholder="Username" required minlength="3" maxlength="50">
+                </div>
 
-            <div class="input-group">
-                <i class="fas fa-lock input-icon"></i> <input type="password" placeholder="Password">
-            </div>
+                <div class="input-group">
+                    <i class="far fa-envelope input-icon"></i>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                </div>
 
-            <button class="btn-signup">Sign Up</button>
+                <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" name="password" id="password" placeholder="Password" required minlength="6">
+                </div>
+
+                <div class="spinner" id="spinner"></div>
+                <div class="message" id="message"></div>
+
+                <button type="submit" class="btn-signup" id="submitBtn">Sign Up</button>
+            </form>
         </div>
 
     </div>
+
+    <script src="/logIns/js/auth.js"></script>
+    <script>
+        // Handle role selection UI
+        const roleOptions = document.querySelectorAll('.role-option');
+        roleOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                roleOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // The form submission is now handled by auth.js automatically
+        // but we can keep custom validation here if needed
+        
+        // Check if user is already logged in
+        if (window.Auth && window.Auth.isAuthenticated()) {
+            window.location.href = window.Auth.getRoleBasedRedirectUrl();
+        }
+    </script>
 
 </body>
 </html>

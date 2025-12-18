@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: #f8f9fa; 
+            color: #333; 
+            min-height: 100vh;
+        }
+
+        .orders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .orders-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .orders-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .filter-tab.active {
+            background: #2c2c2c;
+            color: #fff;
+            border-color: #2c2c2c;
+        }
+
+        .filter-tab:hover {
+            background: #f0f0f0;
+        }
+
+        .filter-tab.active:hover {
+            background: #1a1a1a;
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: box-shadow 0.3s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .order-number {
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #000;
+        }
+
+        .order-date {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .order-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-shipped {
+            background: #d1e7dd;
+            color: #0a3622;
+        }
+
+        .status-delivered {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .item-quantity {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .item-price {
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .order-total {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #000;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-view {
+            background: #2c2c2c;
+            color: #fff;
+        }
+
+        .btn-view:hover {
+            background: #1a1a1a;
+        }
+
+        .btn-reorder {
+            background: #dcdcdc;
+            color: #444;
+        }
+
+        .btn-reorder:hover {
+            background: #c0c0c0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .empty-state p {
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .btn-shop {
+            background: #2c2c2c;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        .loading-spinner i {
+            font-size: 3rem;
+            color: #2c2c2c;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .orders-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .order-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .order-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .order-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .btn-action {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="orders-container">
+        <header class="orders-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>My Orders</h1>
+            </div>
+        </header>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterOrders('all')">All Orders</button>
+            <button class="filter-tab" onclick="filterOrders('pending')">Pending</button>
+            <button class="filter-tab" onclick="filterOrders('processing')">Processing</button>
+            <button class="filter-tab" onclick="filterOrders('shipped')">Shipped</button>
+            <button class="filter-tab" onclick="filterOrders('delivered')">Delivered</button>
+            <button class="filter-tab" onclick="filterOrders('cancelled')">Cancelled</button>
+        </div>
+
+        <div id="ordersContainer" class="orders-list">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://relo-24j8.onrender.com/api';
+        let allOrders = [];
+        let currentFilter = 'all';
+
+        function getAuthToken() {
+            return localStorage.getItem('authToken') || localStorage.getItem('access_token');
+        }
+
+        function checkAuth() {
+            const token = getAuthToken();
+            if (!token) {
+                alert('Please login to view your orders');
+                window.location.href = '/login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-PH', {
+                style: 'currency',
+                currency: 'PHP',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function getStatusClass(status) {
+            const statusMap = {
+                'pending': 'status-pending',
+                'processing': 'status-processing',
+                'shipped': 'status-shipped',
+                'delivered': 'status-delivered',
+                'cancelled': 'status-cancelled'
+            };
+            return statusMap[status.toLowerCase()] || 'status-pending';
+        }
+
+        async function fetchOrders() {
+            try {
+                const token = getAuthToken();
+                const response = await fetch(`${API_BASE_URL}/orders`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch orders');
+                
+                const data = await response.json();
+                allOrders = data.orders || data || [];
+                renderOrders(allOrders);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+                showEmptyState('error');
+            }
+        }
+
+        function renderOrders(orders) {
+            const container = document.getElementById('ordersContainer');
+            
+            if (!orders || orders.length === 0) {
+                showEmptyState('no-orders');
+                return;
+            }
+
+            container.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-number">Order #${order.order_number || order.id}</div>
+                            <div class="order-date">${formatDate(order.created_at || order.order_date)}</div>
+                        </div>
+                        <span class="order-status ${getStatusClass(order.status)}">${order.status}</span>
+                    </div>
+
+                    <div class="order-items">
+                        ${(order.items || []).map(item => `
+                            <div class="order-item">
+                                <img src="${item.product_image || item.image || 'https://via.placeholder.com/80'}" 
+                                     alt="${item.product_name || item.name}" 
+                                     class="item-image">
+                                <div class="item-details">
+                                    <div class="item-name">${item.product_name || item.name}</div>
+                                    <div class="item-quantity">Qty: ${item.quantity}</div>
+                                </div>
+                                <div class="item-price">${formatCurrency(item.price * item.quantity)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="order-footer">
+                        <div class="order-total">Total: ${formatCurrency(order.total_amount || order.total)}</div>
+                        <div class="order-actions">
+                            <button class="btn-action btn-view" onclick="viewOrder('${order.id || order.order_number}')">
+                                View Details
+                            </button>
+                            ${order.status !== 'cancelled' ? `
+                                <button class="btn-action btn-reorder" onclick="reorder('${order.id || order.order_number}')">
+                                    Order Again
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showEmptyState(type) {
+            const container = document.getElementById('ordersContainer');
+            
+            if (type === 'error') {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h2>Unable to Load Orders</h2>
+                        <p>There was an error loading your orders. Please try again.</p>
+                        <button class="btn-shop" onclick="fetchOrders()">Retry</button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h2>No Orders Yet</h2>
+                        <p>You haven't placed any orders yet. Start shopping now!</p>
+                        <a href="/" class="btn-shop">Start Shopping</a>
+                    </div>
+                `;
+            }
+        }
+
+        function filterOrders(status) {
+            currentFilter = status;
+            
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter orders
+            let filtered = allOrders;
+            if (status !== 'all') {
+                filtered = allOrders.filter(order => 
+                    order.status.toLowerCase() === status.toLowerCase()
+                );
+            }
+
+            renderOrders(filtered);
+        }
+
+        function viewOrder(orderId) {
+            window.location.href = `/order-details.html?id=${orderId}`;
+        }
+
+        function reorder(orderId) {
+            if (confirm('Add all items from this order to your cart?')) {
+                // TODO: Implement reorder functionality
+                alert('Items will be added to your cart');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkAuth()) return;
+            fetchOrders();
+        });
+    </script>
+
+</body>
+</html>

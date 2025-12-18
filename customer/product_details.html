@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeless Treasures - GMT-Master II</title>
+    <title>Product Details - Timeless Treasures</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- General Reset & Typography (Reused) --- */
         * {
             margin: 0;
             padding: 0;
@@ -36,7 +35,7 @@
             padding: 0 20px;
         }
 
-        /* --- Header Section (Reused) --- */
+        /* Header */
         header { border-bottom: 1px solid #ddd; }
 
         .top-bar {
@@ -44,6 +43,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 40px;
+        }
+
+        .logo {
+            cursor: pointer;
         }
 
         .logo h1 {
@@ -66,10 +69,17 @@
             margin-top: -10px;
         }
 
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
         .header-icons i {
             font-size: 1.2rem;
-            margin-left: 15px;
             cursor: pointer;
+            position: relative;
+            color: #555;
         }
 
         .nav-bar {
@@ -105,15 +115,22 @@
         }
         .search-bar i { color: #ccc; font-size: 0.9rem; }
 
-        /* --- Breadcrumbs --- */
+        /* Breadcrumbs */
         .breadcrumbs {
             padding: 20px 40px;
             font-size: 0.9rem;
             color: #888;
         }
+        .breadcrumbs a {
+            color: #888;
+            text-decoration: none;
+        }
+        .breadcrumbs a:hover {
+            color: #333;
+        }
         .breadcrumbs span { margin: 0 5px; }
 
-        /* --- Product Main Section --- */
+        /* Product Main Section */
         .product-main {
             display: flex;
             padding: 20px 40px;
@@ -138,9 +155,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
-        .thumb-box img { width: 100%; height: auto; }
-        .thumb-box:last-child { background-color: #f9f9f9; } /* Placeholder blank box */
+        .thumb-box:hover {
+            border-color: #333;
+        }
+        .thumb-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+        }
 
         /* Main Image */
         .product-image {
@@ -156,6 +180,7 @@
             max-width: 80%;
             max-height: 90%;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+            transition: all 0.3s ease;
         }
 
         /* Product Info */
@@ -170,7 +195,7 @@
         }
         
         .rating {
-            color: #FFD700; /* Gold */
+            color: #FFD700;
             font-size: 0.9rem;
             margin-bottom: 15px;
         }
@@ -183,18 +208,16 @@
             margin-bottom: 20px;
         }
 
-        .variations { margin-bottom: 20px; }
-        .variations p { margin-bottom: 10px; font-weight: bold; }
-        .color-options { display: flex; gap: 10px; }
-        .color-dot {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 1px solid #ddd;
+        .product-price {
+            margin-bottom: 20px;
         }
-        .dot-green { background-color: #006400; }
-        .dot-blue { background-color: #00008B; }
+
+        .variations { margin-bottom: 20px; }
+        .variations p { 
+            margin-bottom: 10px; 
+            font-weight: bold; 
+            font-size: 1rem;
+        }
 
         .qty-selector {
             display: inline-flex;
@@ -210,8 +233,18 @@
             font-size: 1.2rem;
             cursor: pointer;
             padding: 0 10px;
+            color: #333;
+            transition: color 0.3s;
         }
-        .qty-selector span { margin: 0 10px; font-weight: bold; }
+        .qty-selector button:hover {
+            color: #000;
+        }
+        .qty-selector span { 
+            margin: 0 10px; 
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
 
         .btn-add-cart {
             display: block;
@@ -226,9 +259,14 @@
             cursor: pointer;
             text-transform: uppercase;
             font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn-add-cart:hover {
+            background-color: #333;
+            transform: translateY(-2px);
         }
 
-        /* --- Tabs & Reviews Section --- */
+        /* Tabs & Reviews Section */
         .tabs-section {
             max-width: 1000px;
             margin: 60px auto;
@@ -248,6 +286,10 @@
             font-family: 'Lato', sans-serif;
             color: #888;
             font-weight: bold;
+            transition: color 0.3s;
+        }
+        .tab-link:hover {
+            color: #555;
         }
         .tab-link.active {
             color: #000;
@@ -287,12 +329,12 @@
         /* Reviews Grid */
         .reviews-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 Columns */
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 40px;
         }
         .review-card-placeholder {
-            background-color: #e0e0e0; /* Grey box as per image */
+            background-color: #e0e0e0;
             height: 180px;
             border-radius: 8px;
         }
@@ -308,7 +350,7 @@
             cursor: pointer;
         }
 
-        /* --- Recommendations Section --- */
+        /* Recommendations Section */
         .recommendations {
             padding: 60px 20px;
             text-align: center;
@@ -318,7 +360,7 @@
 
         .rec-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Columns */
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             margin-top: 40px;
         }
@@ -327,11 +369,19 @@
             border: 1px solid #f0f0f0;
             padding: 20px;
             border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .rec-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
         }
         .rec-card img {
             width: 100%;
-            height: auto;
+            height: 200px;
+            object-fit: cover;
             margin-bottom: 15px;
+            border-radius: 5px;
         }
         .rec-card h4 {
             font-size: 0.9rem;
@@ -339,16 +389,17 @@
             margin-bottom: 5px;
         }
         .rec-desc {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #888;
-            margin-bottom: 5px;
-            line-height: 1.2;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
 
-        /* --- Footer (Reused) --- */
+        /* Footer */
         .contact-section {
             padding: 40px 0;
             text-align: center;
+            background-color: #f9f9f9;
         }
         .contact-pills {
             display: flex;
@@ -365,8 +416,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            background-color: #fff;
         }
-        .copyright { font-size: 0.7rem; color: #666; }
+        .copyright { font-size: 0.75rem; color: #666; }
 
         footer {
             background-color: #000;
@@ -379,11 +431,37 @@
             max-width: 1200px;
             margin: 0 auto;
             flex-wrap: wrap;
+            gap: 40px;
         }
-        .footer-logo h2 { font-family: 'Cinzel', serif; color: #888; }
-        .footer-links { flex: 2; display: flex; justify-content: space-around; }
-        .footer-col h4 { font-family: 'Playfair Display', serif; margin-bottom: 20px; }
-        .footer-col ul li { margin-bottom: 10px; font-size: 0.8rem; color: #ccc; }
+        .footer-logo h2 { 
+            font-family: 'Cinzel', serif; 
+            color: #888;
+            font-size: 2rem;
+        }
+        .footer-logo span {
+            color: #ccc;
+        }
+        .footer-links { 
+            flex: 2; 
+            display: flex; 
+            justify-content: space-around;
+            gap: 40px;
+        }
+        .footer-col h4 { 
+            font-family: 'Playfair Display', serif; 
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-col ul li { 
+            margin-bottom: 10px; 
+            font-size: 0.85rem; 
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .footer-col ul li:hover {
+            color: #fff;
+        }
         
         .map-container {
             width: 100%;
@@ -394,18 +472,59 @@
             border-radius: 10px;
             overflow: hidden;
         }
-        .map-container img { width: 100%; height: 100%; object-fit: cover; }
+        .map-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2rem;
+            color: #666;
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .product-main, .reviews-grid, .rec-grid, .footer-content {
+            .product-main {
                 flex-direction: column;
+            }
+            .product-thumbnails {
+                flex-direction: row;
+                order: 2;
+            }
+            .product-image { 
+                height: 300px;
+                order: 1;
+            }
+            .product-details {
+                order: 3;
+                padding-left: 0;
+            }
+            .reviews-grid, .rec-grid {
                 grid-template-columns: 1fr;
             }
-            .product-image { height: 300px; }
-            .tabs-nav { gap: 20px; font-size: 0.9rem; }
-            .top-bar, .nav-links { flex-direction: column; gap: 10px; }
-            .nav-links { display: none; } /* Hide menu on mobile for simplicity */
+            .tabs-nav { 
+                gap: 20px; 
+                font-size: 0.85rem;
+            }
+            .top-bar {
+                padding: 15px 20px;
+            }
+            .nav-bar {
+                padding: 10px 20px;
+            }
+            .nav-links { 
+                display: none;
+            }
+            .footer-content {
+                flex-direction: column;
+            }
+            .footer-links {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -414,18 +533,19 @@
     <header>
         <div class="top-bar">
             <div class="menu-icon"><i class="fas fa-bars"></i></div>
-            <div class="logo">
+            <div class="logo" onclick="window.location.href='/'">
                 <h1>Timeless</h1>
                 <span>Treasures</span>
             </div>
             <div class="header-icons">
-                <i class="fas fa-shopping-cart"></i>
-                <i class="far fa-user"></i>
+                <i class="fas fa-shopping-cart" id="cart-icon"></i>
+                <i class="far fa-heart" id="wishlist-icon"></i>
+                <i class="far fa-user" id="user-icon"></i>
             </div>
         </div>
         <nav class="nav-bar">
             <ul class="nav-links">
-                <li><a href="#">On sale</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="#">New Arrivals</a></li>
                 <li><a href="#">Brands</a></li>
             </ul>
@@ -437,45 +557,11 @@
     </header>
 
     <div class="breadcrumbs">
-        Home <span>&gt;</span> Shop <span>&gt;</span> Men's <span>&gt;</span>
+        Home <span>&gt;</span> <a href="/">Shop</a> <span>&gt;</span> Loading...
     </div>
 
     <section class="product-main">
-        <div class="product-thumbnails">
-            <div class="thumb-box"><img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=100" alt="Thumb 1"></div>
-            <div class="thumb-box"><img src="https://images.unsplash.com/photo-1620625515032-608130563bee?auto=format&fit=crop&q=80&w=100" alt="Thumb 2"></div>
-            <div class="thumb-box"></div> </div>
-
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?auto=format&fit=crop&q=80&w=600" alt="GMT Master II">
-        </div>
-
-        <div class="product-details">
-            <h2>GMT-Master II</h2>
-            <div class="rating">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                <span>4.9/5</span>
-            </div>
-            <p class="product-desc">
-                The Oyster Perpetual GMT-Master II in Oystersteel with a red and blue bezel and an Oyster bracelet.
-            </p>
-
-            <div class="variations">
-                <p>Variations</p>
-                <div class="color-options">
-                    <div class="color-dot dot-green"></div>
-                    <div class="color-dot dot-blue"></div>
-                </div>
-            </div>
-
-            <div class="qty-selector">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-
-            <button class="btn-add-cart">Add to Cart</button>
-        </div>
+        <div class="loading">Loading product details...</div>
     </section>
 
     <section class="tabs-section">
@@ -510,21 +596,7 @@
     <section class="recommendations">
         <h2 class="serif-font" style="font-size: 2rem;">You Might Also Like</h2>
         <div class="rec-grid">
-            <div class="rec-card">
-                <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&q=80&w=300" alt="Rec 1">
-                <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span style="color:#333; font-size:0.7rem;">4.7/5</span></div>
-                <p class="rec-desc">The Oyster Perpetual GMT-Master II in white gold with a meteorite dial and an Oyster bracelet.</p>
-            </div>
-            <div class="rec-card">
-                <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&q=80&w=300" alt="Rec 2">
-                <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span style="color:#333; font-size:0.7rem;">4.7/5</span></div>
-                <p class="rec-desc">The Oyster Perpetual GMT-Master II in white gold with a meteorite dial and an Oyster bracelet.</p>
-            </div>
-            <div class="rec-card">
-                <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&q=80&w=300" alt="Rec 3">
-                <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span style="color:#333; font-size:0.7rem;">4.7/5</span></div>
-                <p class="rec-desc">The Oyster Perpetual GMT-Master II in white gold with a meteorite dial and an Oyster bracelet.</p>
-            </div>
+            <!-- Will be populated by JavaScript -->
         </div>
     </section>
 
@@ -575,6 +647,11 @@
             <img src="https://mt1.google.com/vt/lyrs=m&x=131&y=66&z=7" alt="Google Map Location">
         </div>
     </footer>
+
+    <!-- Include JavaScript files -->
+    <script src="./js/dashboard.js"></script>
+    <script src="./js/product_details.js"></script>
+    <script src="./js/cart-navigation.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; background-color: #fff; color: #333; }
+        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Header Section */
+        header { border-bottom: 1px solid #ddd; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; }
+        .logo h1 { font-size: 2.5rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; color: #333; text-align: center; }
+        .logo span { display: block; font-size: 1rem; font-family: 'Playfair Display', serif; font-style: italic; text-align: center; margin-top: -10px; }
+        .header-icons i { font-size: 1.2rem; margin-left: 15px; cursor: pointer; }
+        .nav-bar { background-color: #000; color: #fff; padding: 10px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 1px; }
+        .search-bar { border: 1px solid #555; border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; }
+        .search-bar input { background: transparent; border: none; color: #ccc; outline: none; font-size: 0.9rem; }
+        .search-bar i { color: #ccc; font-size: 0.9rem; }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #000;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+        }
+
+        .filter-tab.active {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .orders-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .order-card {
+            background: #fff;
+            padding: 25px;
+            border: 1px solid #eee;
+            transition: box-shadow 0.3s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-id {
+            font-weight: bold;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .order-date {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-pending { background: #fff3cd; color: #856404; }
+        .badge-processing { background: #cfe2ff; color: #084298; }
+        .badge-completed { background: #d1e7dd; color: #0f5132; }
+        .badge-cancelled { background: #f8d7da; color: #842029; }
+
+        .customer-info {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .customer-info div {
+            margin-bottom: 8px;
+        }
+
+        .customer-info i {
+            margin-right: 8px;
+            color: #888;
+            width: 16px;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 3px solid #000;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .order-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .order-total {
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .action-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .action-select:hover {
+            border-color: #000;
+        }
+
+        /* Footer */
+        footer { background-color: #000; color: #fff; padding: 50px 20px; margin-top: 40px; }
+        .footer-content { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+        .footer-logo h2 { font-family: 'Cinzel', serif; color: #888; }
+        .footer-links { flex: 2; display: flex; justify-content: space-around; }
+        .footer-col h4 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-col ul li { margin-bottom: 10px; font-size: 0.8rem; color: #ccc; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .top-bar { flex-direction: column; gap: 15px; }
+            .main-content { padding: 20px; }
+            .order-footer { flex-direction: column; gap: 15px; align-items: stretch; }
+            .action-select { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="menu-icon"><i class="fas fa-bars"></i></div>
+            <div class="logo">
+                <h1>Timeless</h1>
+                <span>Treasures</span>
+            </div>
+            <div class="header-icons">
+                <i class="fas fa-shopping-cart"></i>
+                <i class="far fa-user"></i>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul class="nav-links">
+                <li><a href="seller_dashboard.html">Dashboard</a></li>
+                <li><a href="add_product.html">Add Product</a></li>
+                <li><a href="inventory.html">Inventory</a></li>
+                <li><a href="order_management.html">Orders</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+            </ul>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">ORDER MANAGEMENT</h1>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterOrders('all')">All Orders</button>
+            <button class="filter-tab" onclick="filterOrders('pending')">Pending</button>
+            <button class="filter-tab" onclick="filterOrders('processing')">Processing</button>
+            <button class="filter-tab" onclick="filterOrders('completed')">Completed</button>
+            <button class="filter-tab" onclick="filterOrders('cancelled')">Cancelled</button>
+        </div>
+
+        <div class="orders-grid">
+            <div class="order-card" data-status="pending">
+                <div class="order-header">
+                    <div>
+                        <div class="order-id">#ORD-1234</div>
+                        <div class="order-date">Dec 18, 2024 - 2:30 PM</div>
+                    </div>
+                    <span class="badge badge-pending">Pending</span>
+                </div>
+
+                <div class="customer-info">
+                    <div><i class="fas fa-user"></i> Maria Santos</div>
+                    <div><i class="fas fa-phone"></i> +63 912 345 6789</div>
+                    <div><i class="fas fa-map-marker-alt"></i> 123 Street, Manila</div>
+                </div>
+
+                <div class="order-items">
+                    <div class="order-item">
+                        <strong>Rolex Daytona</strong> x1 - ₱1,200,000.00
+                    </div>
+                </div>
+
+                <div class="order-footer">
+                    <div class="order-total">Total: ₱1,200,000.00</div>
+                    <select class="action-select" onchange="updateOrderStatus(this, '1234')">
+                        <option value="">Update Status</option>
+                        <option value="processing">Processing</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="order-card" data-status="processing">
+                <div class="order-header">
+                    <div>
+                        <div class="order-id">#ORD-1233</div>
+                        <div class="order-date">Dec 18, 2024 - 1:15 PM</div>
+                    </div>
+                    <span class="badge badge-processing">Processing</span>
+                </div>
+
+                <div class="customer-info">
+                    <div><i class="fas fa-user"></i> Juan Dela Cruz</div>
+                    <div><i class="fas fa-phone"></i> +63 917 234 5678</div>
+                    <div><i class="fas fa-map-marker-alt"></i> 456 Avenue, Quezon City</div>
+                </div>
+
+                <div class="order-items">
+                    <div class="order-item">
+                        <strong>Omega Seamaster</strong> x1 - ₱850,000.00
+                    </div>
+                </div>
+
+                <div class="order-footer">
+                    <div class="order-total">Total: ₱850,000.00</div>
+                    <select class="action-select" onchange="updateOrderStatus(this, '1233')">
+                        <option value="">Update Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="order-card" data-status="completed">
+                <div class="order-header">
+                    <div>
+                        <div class="order-id">#ORD-1232</div>
+                        <div class="order-date">Dec 17, 2024 - 6:45 PM</div>
+                    </div>
+                    <span class="badge badge-completed">Completed</span>
+                </div>
+
+                <div class="customer-info">
+                    <div><i class="fas fa-user"></i> Anna Reyes</div>
+                    <div><i class="fas fa-phone"></i> +63 905 876 5432</div>
+                    <div><i class="fas fa-map-marker-alt"></i> 789 Road, Makati</div>
+                </div>
+
+                <div class="order-items">
+                    <div class="order-item">
+                        <strong>Gold Pendant</strong> x1 - ₱45,000.00
+                    </div>
+                </div>
+
+                <div class="order-footer">
+                    <div class="order-total">Total: ₱45,000.00</div>
+                    <span style="color: #0f5132; font-weight: 600;">✓ Delivered</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Timeless Treasures</h2>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li>New Arrivals</li>
+                        <li>Best Sellers</li>
+                        <li>On Sale</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>Contact Us</li>
+                        <li>FAQs</li>
+                        <li>Shipping Info</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li>Our Story</li>
+                        <li>Careers</li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function filterOrders(status) {
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.order-card').forEach(card => {
+                if(status === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = card.dataset.status === status ? 'block' : 'none';
+                }
+            });
+        }
+
+        function updateOrderStatus(select, orderId) {
+            const newStatus = select.value;
+            if(!newStatus) return;
+            
+            if(confirm(`Update order #${orderId} to ${newStatus}?`)) {
+                alert('Order status updated!');
+                select.value = '';
+            }
+        }
+    </script>
+
+</body>
+</html>

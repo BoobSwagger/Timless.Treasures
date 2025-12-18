@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; background-color: #fff; color: #333; }
+        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Header Section */
+        header { border-bottom: 1px solid #ddd; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; }
+        .logo h1 { font-size: 2.5rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; color: #333; text-align: center; }
+        .logo span { display: block; font-size: 1rem; font-family: 'Playfair Display', serif; font-style: italic; text-align: center; margin-top: -10px; }
+        .header-icons i { font-size: 1.2rem; margin-left: 15px; cursor: pointer; }
+        .nav-bar { background-color: #000; color: #fff; padding: 10px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 1px; }
+        .search-bar { border: 1px solid #555; border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; }
+        .search-bar input { background: transparent; border: none; color: #ccc; outline: none; font-size: 0.9rem; }
+        .search-bar i { color: #ccc; font-size: 0.9rem; }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #000;
+        }
+
+        .inventory-section {
+            background: #fff;
+            padding: 30px;
+            border: 1px solid #eee;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.3rem;
+            color: #000;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-controls input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+
+        .search-controls button {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #000;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-controls button:hover {
+            background: #333;
+        }
+
+        .inventory-table {
+            background: #fff;
+            border: 1px solid #eee;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Lato', sans-serif;
+        }
+
+        thead {
+            background: #f9f9f9;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid #eee;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .product-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .stock-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .stock-high { background: #d1e7dd; color: #0f5132; }
+        .stock-low { background: #fff3cd; color: #856404; }
+        .stock-out { background: #f8d7da; color: #842029; }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+            color: #fff;
+            border-color: #d32f2f;
+        }
+
+        /* Footer */
+        footer { background-color: #000; color: #fff; padding: 50px 20px; margin-top: 40px; }
+        .footer-content { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+        .footer-logo h2 { font-family: 'Cinzel', serif; color: #888; }
+        .footer-links { flex: 2; display: flex; justify-content: space-around; }
+        .footer-col h4 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-col ul li { margin-bottom: 10px; font-size: 0.8rem; color: #ccc; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .top-bar { flex-direction: column; gap: 15px; }
+            .main-content { padding: 20px; }
+            .section-header { flex-direction: column; align-items: stretch; }
+            .search-controls { max-width: 100%; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="menu-icon"><i class="fas fa-bars"></i></div>
+            <div class="logo">
+                <h1>Timeless</h1>
+                <span>Treasures</span>
+            </div>
+            <div class="header-icons">
+                <i class="fas fa-shopping-cart"></i>
+                <i class="far fa-user"></i>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul class="nav-links">
+                <li><a href="seller_dashboard.html">Dashboard</a></li>
+                <li><a href="add_product.html">Add Product</a></li>
+                <li><a href="inventory.html">Inventory</a></li>
+                <li><a href="order_management.html">Orders</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+            </ul>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">INVENTORY MANAGEMENT</h1>
+
+        <div class="inventory-section">
+            <div class="section-header">
+                <h2>Manage Products</h2>
+                <div class="search-controls">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="inventory-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="product-cell">
+                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
+                                    <span>Rolex Daytona</span>
+                                </div>
+                            </td>
+                            <td>Watches</td>
+                            <td>₱1,200,000</td>
+                            <td>5</td>
+                            <td><span class="stock-badge stock-high">In Stock</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="product-cell">
+                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
+                                    <span>Omega Seamaster</span>
+                                </div>
+                            </td>
+                            <td>Watches</td>
+                            <td>₱850,000</td>
+                            <td>3</td>
+                            <td><span class="stock-badge stock-low">Low Stock</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="product-cell">
+                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
+                                    <span>Gold Pendant</span>
+                                </div>
+                            </td>
+                            <td>Jewelry</td>
+                            <td>₱45,000</td>
+                            <td>0</td>
+                            <td><span class="stock-badge stock-out">Out of Stock</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="product-cell">
+                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
+                                    <span>Diamond Ring</span>
+                                </div>
+                            </td>
+                            <td>Jewelry</td>
+                            <td>₱250,000</td>
+                            <td>8</td>
+                            <td><span class="stock-badge stock-high">In Stock</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Timeless Treasures</h2>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li>New Arrivals</li>
+                        <li>Best Sellers</li>
+                        <li>On Sale</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>Contact Us</li>
+                        <li>FAQs</li>
+                        <li>Shipping Info</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li>Our Story</li>
+                        <li>Careers</li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.btn-edit').forEach(btn => {
+            btn.onclick = () => alert('Edit product functionality');
+        });
+
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.onclick = () => {
+                if(confirm('Delete this product?')) alert('Product deleted');
+            };
+        });
+
+        document.getElementById('searchInput').addEventListener('input', e => {
+            const search = e.target.value.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(search) ? '' : 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

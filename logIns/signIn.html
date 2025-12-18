@@ -1,275 +1,381 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In - Timeless Treasures</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign In - Timeless Treasures</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        /* --- General Reset --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: 'Lato', sans-serif; 
-            background-color: #fff; 
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* --- Back Button --- */
-        .back-btn {
-            position: absolute;
-            top: 40px;
-            left: 40px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #333;
-        }
-
-        /* --- Main Card Container --- */
-        .auth-container {
-            width: 900px;
-            height: 550px;
-            background-color: #fff;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            display: flex;
-            overflow: hidden;
-        }
-
-        /* --- Left Side (Sign In Form) --- */
-        .left-panel {
-            flex: 0.6;
-            background-color: #e0e0e0; /* Light grey */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            position: relative;
-        }
-
-        .form-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: #111;
-            margin-bottom: 15px;
-            font-weight: 400;
-            text-align: center;
-        }
-
-        /* Top Social Icons */
-        .social-icons-top {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .social-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background-color: #222;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .social-icon:hover { transform: scale(1.1); }
-
-        .form-subtitle {
-            font-size: 0.85rem;
-            color: #555;
-            margin-bottom: 25px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Inputs */
-        .input-group {
-            width: 100%;
-            max-width: 350px;
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .input-group input {
-            width: 100%;
-            background-color: transparent;
-            border: 1px solid #777;
-            padding: 12px 15px 12px 45px;
-            font-size: 0.9rem;
-            border-radius: 5px;
-            outline: none;
-            color: #333;
-        }
-
-        .input-group input::placeholder {
-            color: #666;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        /* Bottom Social Icons (Colored) */
-        .social-icons-bottom {
-            display: flex;
-            gap: 20px;
-            margin: 20px 0 30px;
-            font-size: 1.5rem;
-        }
-        .icon-whatsapp { color: #25D366; cursor: pointer; }
-        .icon-facebook { color: #000; cursor: pointer; }
-        .icon-google { color: #DB4437; cursor: pointer; }
-
-        /* Sign In Button */
-        .btn-signin {
-            background-color: #fff;
-            color: #000;
-            border: 1px solid #aaa;
-            padding: 12px 50px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: background 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .btn-signin:hover { background-color: #f8f8f8; }
-
-        /* --- Right Side (Welcome / Sign Up Link) --- */
-        .right-panel {
-            flex: 0.4;
-            background-color: #000; /* Black Panel */
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .welcome-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            font-weight: 400;
-            text-transform: uppercase;
-        }
-
-        .welcome-text {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            color: #ccc;
-            font-weight: 300;
-            max-width: 250px;
-        }
-
-        .btn-signup-ghost {
-            background-color: #fff; /* Solid white as per image */
-            border: none;
-            color: #000;
-            padding: 12px 40px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .btn-signup-ghost:hover {
-            background-color: #ddd;
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .auth-container {
-                flex-direction: column;
-                width: 90%;
-                height: auto;
-            }
-            .left-panel, .right-panel {
-                flex: none;
-                width: 100%;
-                padding: 40px 20px;
-            }
-            /* Reorder so welcome message is at top on mobile if desired, 
-               or keep default. Default flow puts Form first. */
-        }
-    </style>
-</head>
-<body>
-
-    <button class="back-btn" onclick="history.back()">
-        <i class="fas fa-arrow-left"></i>
-    </button>
-
-    <div class="auth-container">
-        
-        <div class="left-panel">
-            <h1 class="form-title">Sign in to Timeless Treasures</h1>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
             
-            <div class="social-icons-top">
-                <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
-                <div class="social-icon"><i class="fab fa-instagram"></i></div>
-                <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+            body { 
+                font-family: 'Lato', sans-serif; 
+                background-color: #fff; 
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+
+            .back-btn {
+                position: absolute;
+                top: 40px;
+                left: 40px;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: #333;
+                transition: color 0.3s;
+            }
+            .back-btn:hover { color: #000; }
+
+            .auth-container {
+                width: 900px;
+                height: 550px;
+                background-color: #fff;
+                border-radius: 20px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                display: flex;
+                overflow: hidden;
+            }
+
+            .left-panel {
+                flex: 0.6;
+                background-color: #e0e0e0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 40px;
+                position: relative;
+            }
+
+            .form-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 2rem;
+                color: #111;
+                margin-bottom: 15px;
+                font-weight: 400;
+                text-align: center;
+            }
+
+            .social-icons-top {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .social-icon {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background-color: #222;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: transform 0.2s;
+            }
+            .social-icon:hover { transform: scale(1.1); }
+
+            .form-subtitle {
+                font-size: 0.85rem;
+                color: #555;
+                margin-bottom: 25px;
+                font-family: 'Playfair Display', serif;
+            }
+
+            .input-group {
+                width: 100%;
+                max-width: 350px;
+                position: relative;
+                margin-bottom: 15px;
+            }
+
+            .input-group input {
+                width: 100%;
+                background-color: transparent;
+                border: 1px solid #777;
+                padding: 12px 15px 12px 45px;
+                font-size: 0.9rem;
+                border-radius: 5px;
+                outline: none;
+                color: #333;
+            }
+
+            .input-group input::placeholder {
+                color: #666;
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                letter-spacing: 0.5px;
+            }
+
+            .input-group input.error {
+                border-color: #e74c3c;
+            }
+
+            .input-icon {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #666;
+                font-size: 1.1rem;
+            }
+
+            .social-icons-bottom {
+                display: flex;
+                gap: 20px;
+                margin: 20px 0 30px;
+                font-size: 1.5rem;
+            }
+            .icon-whatsapp { color: #25D366; cursor: pointer; }
+            .icon-facebook { color: #000; cursor: pointer; }
+            .icon-google { color: #DB4437; cursor: pointer; }
+
+            .btn-signin {
+                background-color: #fff;
+                color: #000;
+                border: 1px solid #aaa;
+                padding: 12px 50px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 0.85rem;
+                cursor: pointer;
+                text-transform: uppercase;
+                transition: all 0.3s;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+            .btn-signin:hover { 
+                background-color: #f8f8f8;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            .btn-signin:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+            .right-panel {
+                flex: 0.4;
+                background-color: #000;
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 40px;
+                text-align: center;
+            }
+
+            .welcome-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 2rem;
+                margin-bottom: 20px;
+                letter-spacing: 1px;
+                font-weight: 400;
+                text-transform: uppercase;
+            }
+
+            .welcome-text {
+                font-size: 0.9rem;
+                line-height: 1.6;
+                margin-bottom: 40px;
+                color: #ccc;
+                font-weight: 300;
+                max-width: 250px;
+            }
+
+            .btn-signup-ghost {
+                background-color: #fff;
+                border: none;
+                color: #000;
+                padding: 12px 40px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 0.85rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .btn-signup-ghost:hover {
+                background-color: #ddd;
+            }
+
+            .message {
+                margin-top: 15px;
+                padding: 10px 15px;
+                border-radius: 5px;
+                font-size: 0.85rem;
+                display: none;
+                max-width: 350px;
+                text-align: center;
+            }
+
+            .message.error {
+                background-color: #fee;
+                color: #c33;
+                border: 1px solid #fcc;
+            }
+
+            .message.success {
+                background-color: #efe;
+                color: #3c3;
+                border: 1px solid #cfc;
+            }
+
+            .spinner {
+                display: none;
+                width: 20px;
+                height: 20px;
+                border: 3px solid #f3f3f3;
+                border-top: 3px solid #333;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin: 0 auto;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+            @media (max-width: 768px) {
+                .auth-container {
+                    flex-direction: column;
+                    width: 90%;
+                    height: auto;
+                }
+                .left-panel, .right-panel {
+                    flex: none;
+                    width: 100%;
+                    padding: 40px 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <div class="auth-container">
+            
+            <div class="left-panel">
+                <h1 class="form-title">Sign in to Timeless Treasures</h1>
+                
+                <div class="social-icons-top">
+                    <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+                </div>
+
+                <p class="form-subtitle">or use your email account:</p>
+
+                <form id="signinForm">
+                    <div class="input-group">
+                        <i class="far fa-user input-icon"></i>
+                        <input type="text" id="username" placeholder="Username" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+
+                    <div class="social-icons-bottom">
+                        <i class="fab fa-whatsapp icon-whatsapp"></i>
+                        <i class="fab fa-facebook icon-facebook"></i>
+                        <i class="fab fa-google icon-google"></i>
+                    </div>
+
+                    <div class="spinner" id="spinner"></div>
+                    <div class="message" id="message"></div>
+
+                    <button type="submit" class="btn-signin" id="submitBtn">SIGN IN</button>
+                </form>
             </div>
 
-            <p class="form-subtitle">or use your email account:</p>
-
-            <div class="input-group">
-                <i class="far fa-user input-icon"></i>
-                <input type="text" placeholder="Name">
+            <div class="right-panel">
+                <h2 class="welcome-title">Hello, Friend !</h2>
+                <p class="welcome-text">
+                    Enter your personal details and start journey with us
+                </p>
+                <a href="signup.html" class="btn-signup-ghost">Sign Up</a>
             </div>
 
-            <div class="input-group">
-                <i class="fas fa-lock input-icon"></i>
-                <input type="password" placeholder="Password">
-            </div>
-
-            <div class="social-icons-bottom">
-                <i class="fab fa-whatsapp icon-whatsapp"></i>
-                <i class="fab fa-facebook icon-facebook"></i>
-                <i class="fab fa-google icon-google"></i>
-            </div>
-
-            <button class="btn-signin">SIGN IN</button>
         </div>
 
-        <div class="right-panel">
-            <h2 class="welcome-title">Hello, Friend !</h2>
-            <p class="welcome-text">
-                enter your personal details and start journey with us
-            </p>
-            <button class="btn-signup-ghost">Sign Up</button>
-        </div>
+        <script src="./js/auth.js"></script>
+        <script>
+            // Handle form submission
+            document.getElementById('signinForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
 
-    </div>
+                const submitBtn = document.getElementById('submitBtn');
+                const spinner = document.getElementById('spinner');
+                const messageEl = document.getElementById('message');
+                
+                // Get form values
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
 
-</body>
-</html>
+                // Clear previous messages
+                messageEl.style.display = 'none';
+                messageEl.className = 'message';
+
+                // Show loading state
+                submitBtn.disabled = true;
+                spinner.style.display = 'block';
+
+                try {
+                    const result = await signIn(username, password);
+
+                    if (result.success) {
+                        // Show success message
+                        messageEl.textContent = result.message;
+                        messageEl.classList.add('success');
+                        messageEl.style.display = 'block';
+
+                        // Redirect to home or dashboard after 1 second
+                        setTimeout(() => {
+                            window.location.href = '../customer/product_listing.html'; // Change to your home page
+                        }, 1000);
+                    } else {
+                        // Show error message
+                        messageEl.textContent = result.message;
+                        messageEl.classList.add('error');
+                        messageEl.style.display = 'block';
+                        submitBtn.disabled = false;
+                    }
+                } catch (error) {
+                    messageEl.textContent = 'An unexpected error occurred. Please try again.';
+                    messageEl.classList.add('error');
+                    messageEl.style.display = 'block';
+                    submitBtn.disabled = false;
+                } finally {
+                    spinner.style.display = 'none';
+                }
+            });
+
+            // Check if user is already logged in
+            if (isAuthenticated()) {
+                window.location.href = '../customer/product_listing.html'; // Redirect if already logged in
+            }
+        </script>
+
+    </body>
+    </html>

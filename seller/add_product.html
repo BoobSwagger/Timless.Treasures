@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Timeless Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; background-color: #fff; color: #333; }
+        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header Section */
+        header { border-bottom: 1px solid #ddd; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; }
+        .logo h1 { font-size: 2.5rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; color: #333; text-align: center; }
+        .logo span { display: block; font-size: 1rem; font-family: 'Playfair Display', serif; font-style: italic; text-align: center; margin-top: -10px; }
+        .header-icons i { font-size: 1.2rem; margin-left: 15px; cursor: pointer; }
+        .nav-bar { background-color: #000; color: #fff; padding: 10px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 1px; }
+        .search-bar { border: 1px solid #555; border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; }
+        .search-bar input { background: transparent; border: none; color: #ccc; outline: none; font-size: 0.9rem; }
+        .search-bar i { color: #ccc; font-size: 0.9rem; }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #000;
+        }
+
+        .form-container { 
+            background: #fff; 
+            padding: 40px; 
+            border: 1px solid #eee; 
+            max-width: 800px;
+        }
+        
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 25px; 
+            margin-bottom: 25px; 
+        }
+        
+        .form-group { 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        .form-group.full-width { 
+            grid-column: 1 / -1; 
+        }
+        
+        .form-group label { 
+            font-weight: 600; 
+            margin-bottom: 10px; 
+            color: #000; 
+            font-size: 0.95rem; 
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select { 
+            padding: 12px; 
+            border: 1px solid #ddd; 
+            font-size: 0.95rem; 
+            transition: border 0.3s; 
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { 
+            outline: none; 
+            border-color: #000; 
+        }
+        
+        .form-group textarea { 
+            resize: vertical; 
+            min-height: 100px; 
+            font-family: 'Lato', sans-serif;
+        }
+
+        .image-upload { 
+            border: 2px dashed #ddd; 
+            padding: 40px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+        }
+        
+        .image-upload:hover { 
+            border-color: #000; 
+            background: #f9f9f9; 
+        }
+        
+        .image-upload i { 
+            font-size: 3rem; 
+            color: #ccc; 
+            margin-bottom: 15px; 
+        }
+        
+        .image-preview { 
+            max-width: 200px; 
+            margin: 15px auto; 
+            border: 1px solid #eee;
+        }
+
+        .btn-group { 
+            display: flex; 
+            gap: 15px; 
+            margin-top: 30px; 
+        }
+        
+        .btn { 
+            padding: 12px 30px; 
+            border: 1px solid #000; 
+            cursor: pointer; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            transition: all 0.3s;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .btn-primary { 
+            background: #000; 
+            color: #fff; 
+        }
+        
+        .btn-primary:hover { 
+            background: #333; 
+        }
+        
+        .btn-secondary { 
+            background: #fff; 
+            color: #000; 
+        }
+        
+        .btn-secondary:hover { 
+            background: #f5f5f5; 
+        }
+
+        /* Footer */
+        footer { background-color: #000; color: #fff; padding: 50px 20px; margin-top: 40px; }
+        .footer-content { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+        .footer-logo h2 { font-family: 'Cinzel', serif; color: #888; }
+        .footer-links { flex: 2; display: flex; justify-content: space-around; }
+        .footer-col h4 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-col ul li { margin-bottom: 10px; font-size: 0.8rem; color: #ccc; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .top-bar { flex-direction: column; gap: 15px; }
+            .main-content { padding: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="menu-icon"><i class="fas fa-bars"></i></div>
+            <div class="logo">
+                <h1>Timeless</h1>
+                <span>Treasures</span>
+            </div>
+            <div class="header-icons">
+                <i class="fas fa-shopping-cart"></i>
+                <i class="far fa-user"></i>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul class="nav-links">
+                <li><a href="seller_dashboard.html">Dashboard</a></li>
+                <li><a href="add_product.html">Add Product</a></li>
+                <li><a href="inventory.html">Inventory</a></li>
+                <li><a href="order_management.html">Orders</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+            </ul>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">ADD NEW PRODUCT</h1>
+
+        <div class="form-container">
+            <form id="productForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Product Name *</label>
+                        <input type="text" name="productName" required placeholder="Enter product name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Watches">Watches</option>
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Vintage">Vintage</option>
+                            <option value="Collectibles">Collectibles</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Price (₱) *</label>
+                        <input type="number" name="price" required placeholder="0.00" step="0.01" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stock Quantity *</label>
+                        <input type="number" name="stock" required placeholder="0" min="0">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Description *</label>
+                        <textarea name="description" required placeholder="Enter product description"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Product Image</label>
+                        <div class="image-upload" onclick="document.getElementById('imageInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload image</p>
+                            <small style="color: #888;">JPG, PNG or GIF (MAX. 5MB)</small>
+                        </div>
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                        <img id="imagePreview" class="image-preview" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Add Product</button>
+                    <button type="reset" class="btn btn-secondary"><i class="fas fa-times"></i> Reset</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Timeless Treasures</h2>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li>New Arrivals</li>
+                        <li>Best Sellers</li>
+                        <li>On Sale</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>Contact Us</li>
+                        <li>FAQs</li>
+                        <li>Shipping Info</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li>Our Story</li>
+                        <li>Careers</li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('productForm').addEventListener('submit', e => {
+            e.preventDefault();
+            alert('Product added successfully!');
+            e.target.reset();
+            document.getElementById('imagePreview').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
