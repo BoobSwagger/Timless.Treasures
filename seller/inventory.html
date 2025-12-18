@@ -247,78 +247,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="product-cell">
-                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
-                                    <span>Rolex Daytona</span>
-                                </div>
-                            </td>
-                            <td>Watches</td>
-                            <td>₱1,200,000</td>
-                            <td>5</td>
-                            <td><span class="stock-badge stock-high">In Stock</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-cell">
-                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
-                                    <span>Omega Seamaster</span>
-                                </div>
-                            </td>
-                            <td>Watches</td>
-                            <td>₱850,000</td>
-                            <td>3</td>
-                            <td><span class="stock-badge stock-low">Low Stock</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-cell">
-                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
-                                    <span>Gold Pendant</span>
-                                </div>
-                            </td>
-                            <td>Jewelry</td>
-                            <td>₱45,000</td>
-                            <td>0</td>
-                            <td><span class="stock-badge stock-out">Out of Stock</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-cell">
-                                    <img src="https://via.placeholder.com/50" class="product-img" alt="Product">
-                                    <span>Diamond Ring</span>
-                                </div>
-                            </td>
-                            <td>Jewelry</td>
-                            <td>₱250,000</td>
-                            <td>8</td>
-                            <td><span class="stock-badge stock-high">In Stock</span></td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="btn-icon btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        <!-- Products will be loaded dynamically by inventory.js -->
                     </tbody>
                 </table>
             </div>
@@ -359,25 +288,9 @@
         </div>
     </footer>
 
-    <script>
-        document.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.onclick = () => alert('Edit product functionality');
-        });
-
-        document.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.onclick = () => {
-                if(confirm('Delete this product?')) alert('Product deleted');
-            };
-        });
-
-        document.getElementById('searchInput').addEventListener('input', e => {
-            const search = e.target.value.toLowerCase();
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(search) ? '' : 'none';
-            });
-        });
-    </script>
+    <!-- Load auth.js first, then inventory.js -->
+    <script src="../auth.js"></script>
+    <script src="./js/inventory.js"></script>
 
 </body>
 </html>
