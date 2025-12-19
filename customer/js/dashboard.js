@@ -710,14 +710,25 @@ async function fetchOrderById(orderId) {
 // =====================================================
 function updateCartUI() {
     console.log('🎨 Updating cart UI, item_count:', cart.item_count);
-    const cartIcon = document.querySelector('.fa-shopping-cart');
+    // Look for cart icon more specifically - search by id first, then by class but not user icon
+    let cartIcon = document.querySelector('#cart-icon');
+    if (!cartIcon) {
+        // Fallback: find shopping cart icon that is NOT the user icon
+        const allIcons = document.querySelectorAll('.fa-shopping-cart');
+        for (let icon of allIcons) {
+            if (!icon.id || icon.id === 'cart-icon') {
+                cartIcon = icon;
+                break;
+            }
+        }
+    }
     if (!cartIcon) {
         console.log('Cart icon not found');
         return;
     }
     
     // Remove existing badge
-    const existingBadge = cartIcon.parentElement.querySelector('.cart-badge');
+    const existingBadge = cartIcon.querySelector('.cart-badge');
     if (existingBadge) existingBadge.remove();
     
     if (cart.item_count > 0) {
@@ -740,8 +751,10 @@ function updateCartUI() {
             font-weight: bold;
             pointer-events: none;
         `;
-        cartIcon.parentElement.style.position = 'relative';
-        cartIcon.parentElement.appendChild(badge);
+        // Set position relative on the icon itself
+        cartIcon.style.position = 'relative';
+        cartIcon.style.display = 'inline-block';
+        cartIcon.appendChild(badge);
         console.log('✅ Cart badge added with count:', cart.item_count);
     }
 }

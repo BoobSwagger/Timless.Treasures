@@ -184,14 +184,22 @@ function renderCart() {
 }
 
 // Update Order Summary
-// Update Order Summary
 function updateOrderSummary() {
-    const subtotal = cartData.total || 0;
+    // Calculate subtotal from cart items
+    let subtotal = 0;
+    if (cartData.items && Array.isArray(cartData.items)) {
+        subtotal = cartData.items.reduce((sum, item) => {
+            return sum + (item.product.price * item.quantity);
+        }, 0);
+    } else {
+        subtotal = cartData.total || 0;
+    }
+    
     const discount = subtotal * 0.05; // 5% discount
     const deliveryFee = 0; // Free delivery
     const total = subtotal - discount + deliveryFee;
 
-    console.log('Updating order summary:', { subtotal, discount, deliveryFee, total });
+    console.log('Updating order summary:', { subtotal, discount, deliveryFee, total, cartItems: cartData.items?.length || 0 });
 
     // Update using IDs for more reliable targeting
     const subtotalEl = document.getElementById('subtotal-amount');
