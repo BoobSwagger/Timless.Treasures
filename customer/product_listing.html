@@ -29,6 +29,22 @@
         .header-right { display: flex; gap: 20px; align-items: center; }
         .header-right i { font-size: 1.2rem; cursor: pointer; color: #555; position: relative; }
 
+        .logout-btn {
+            padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: 'Lato', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #555;
+        }
+
         .section-title { font-size: 1.5rem; margin: 40px 0 20px 0; padding-left: 40px; color: #333; font-family: 'Playfair Display', serif; }
 
         .product-grid {
@@ -151,6 +167,7 @@
         <div class="header-right">
             <i class="fas fa-shopping-cart" id="cart-icon"></i>
             <i class="far fa-user" id="user-icon"></i>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </header>
 
