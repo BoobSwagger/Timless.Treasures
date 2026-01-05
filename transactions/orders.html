@@ -459,9 +459,7 @@
                     <div class="order-footer">
                         <div class="order-total">Total: ${formatCurrency(order.total_amount || order.total)}</div>
                         <div class="order-actions">
-                            <button class="btn-action btn-view" onclick="viewOrder('${order.id || order.order_number}')">
-                                View Details
-                            </button>
+                           
                             ${order.status !== 'cancelled' ? `
                                 <button class="btn-action btn-reorder" onclick="reorder('${order.id || order.order_number}')">
                                     Order Again
