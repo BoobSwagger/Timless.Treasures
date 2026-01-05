@@ -1,9 +1,8 @@
-// API Configuration - FIXED: Added /api prefix
+// API Configuration
 const API_BASE_URL = 'https://relo-24j8.onrender.com/api';
 
-// Authentication Helper - FIXED: Check both token keys
+// Authentication Helper
 function getAuthToken() {
-    // Check both possible token storage keys
     const token = localStorage.getItem('authToken') || localStorage.getItem('access_token');
     console.log('Getting auth token:', token ? 'Found' : 'Not found');
     return token;
@@ -17,7 +16,8 @@ function isAuthenticated() {
 
 function redirectToLogin() {
     console.log('Redirecting to login...');
-    window.location.href = '/login.html';
+    // FIXED: Changed from '/login.html' to '/signin.html'
+    window.location.href = '/signin.html';
 }
 
 // API Request Helper
@@ -103,7 +103,6 @@ async function loadCart() {
         
         console.log('Cart data received:', data);
         
-        // Handle the response format from your API
         cartData = {
             items: data.items || [],
             total: data.total || 0,
@@ -127,7 +126,6 @@ function renderCart() {
     console.log('Rendering cart with', cartData.items.length, 'items');
     const cartItemsContainer = document.querySelector('.cart-items');
     
-    // Only render if we're on the cart page
     if (!cartItemsContainer) {
         console.log('Not on cart page, skipping render');
         return;
@@ -185,7 +183,6 @@ function renderCart() {
 
 // Update Order Summary
 function updateOrderSummary() {
-    // Calculate subtotal from cart items
     let subtotal = 0;
     if (cartData.items && Array.isArray(cartData.items)) {
         subtotal = cartData.items.reduce((sum, item) => {
@@ -195,39 +192,21 @@ function updateOrderSummary() {
         subtotal = cartData.total || 0;
     }
     
-    const discount = subtotal * 0.05; // 5% discount
-    const deliveryFee = 0; // Free delivery
+    const discount = subtotal * 0.05;
+    const deliveryFee = 0;
     const total = subtotal - discount + deliveryFee;
 
     console.log('Updating order summary:', { subtotal, discount, deliveryFee, total, cartItems: cartData.items?.length || 0 });
 
-    // Update using IDs for more reliable targeting
     const subtotalEl = document.getElementById('subtotal-amount');
     const discountEl = document.getElementById('discount-amount');
     const deliveryEl = document.getElementById('delivery-amount');
     const totalEl = document.getElementById('total-amount');
     
-    if (subtotalEl) {
-        subtotalEl.textContent = formatCurrency(subtotal);
-        console.log('Updated subtotal:', subtotalEl.textContent);
-    }
-    if (discountEl) {
-        discountEl.textContent = `- ${formatCurrency(discount)}`;
-        console.log('Updated discount:', discountEl.textContent);
-    }
-    if (deliveryEl) {
-        deliveryEl.textContent = deliveryFee === 0 ? 'Free' : formatCurrency(deliveryFee);
-        console.log('Updated delivery:', deliveryEl.textContent);
-    }
-    if (totalEl) {
-        totalEl.textContent = formatCurrency(total);
-        console.log('Updated total:', totalEl.textContent);
-    }
-    
-    // If no elements found, we're probably not on cart page
-    if (!subtotalEl && !discountEl && !deliveryEl && !totalEl) {
-        console.log('No summary elements found, skipping order summary update');
-    }
+    if (subtotalEl) subtotalEl.textContent = formatCurrency(subtotal);
+    if (discountEl) discountEl.textContent = `- ${formatCurrency(discount)}`;
+    if (deliveryEl) deliveryEl.textContent = deliveryFee === 0 ? 'Free' : formatCurrency(deliveryFee);
+    if (totalEl) totalEl.textContent = formatCurrency(total);
 }
 
 // Update Cart Count in Header
@@ -235,13 +214,9 @@ function updateCartCount() {
     console.log('Updating cart count badge:', cartData.item_count);
     const cartIcons = document.querySelectorAll('.fa-shopping-cart');
     cartIcons.forEach(icon => {
-        // Remove existing badge
         const existingBadge = icon.parentElement.querySelector('.cart-count');
-        if (existingBadge) {
-            existingBadge.remove();
-        }
+        if (existingBadge) existingBadge.remove();
 
-        // Add new badge if items exist
         if (cartData.item_count > 0) {
             const badge = document.createElement('span');
             badge.className = 'cart-count';
@@ -263,7 +238,6 @@ function updateCartCount() {
             `;
             icon.parentElement.style.position = 'relative';
             icon.parentElement.appendChild(badge);
-            console.log('Cart badge added');
         }
     });
 }
@@ -291,7 +265,6 @@ async function updateQuantity(cartItemId, newQuantity) {
             body: JSON.stringify({ quantity: newQuantity })
         });
         
-        // Reload cart after update
         await loadCart();
         showSuccess('Cart updated successfully');
     } catch (error) {
@@ -312,7 +285,6 @@ async function removeFromCart(cartItemId) {
             method: 'DELETE'
         });
         
-        // Reload cart after removal
         await loadCart();
         showSuccess('Item removed from cart');
     } catch (error) {
@@ -329,15 +301,12 @@ async function clearCart() {
         return;
     }
 
-    console.log('Clearing cart...');
-
     try {
         showLoading();
         await apiRequest('/cart', {
             method: 'DELETE'
         });
         
-        // Reload cart after clearing
         await loadCart();
         showSuccess('Cart cleared successfully');
     } catch (error) {
@@ -360,7 +329,6 @@ async function applyPromoCode() {
         return;
     }
 
-    // This is a placeholder - implement actual promo code logic in backend
     alert('Promo code functionality coming soon!');
 }
 
@@ -371,14 +339,13 @@ function goToCheckout() {
         return;
     }
 
-    // Store cart data for checkout page
-    localStorage.setItem('checkout_data', JSON.stringify(cartData));
+    // Store cart data for checkout page (temporary workaround)
+    sessionStorage.setItem('checkout_data', JSON.stringify(cartData));
     window.location.href = '../transactions/checkout.html';
 }
 
 // UI Helper Functions
 function showLoading() {
-    // Remove existing loader
     const existingLoader = document.getElementById('loader');
     if (existingLoader) existingLoader.remove();
     
@@ -408,7 +375,6 @@ function showLoading() {
         animation: spin 1s linear infinite;
     `;
     
-    // Add animation if not exists
     if (!document.querySelector('#spinner-animation')) {
         const style = document.createElement('style');
         style.id = 'spinner-animation';
@@ -426,9 +392,7 @@ function showLoading() {
 
 function hideLoading() {
     const loader = document.getElementById('loader');
-    if (loader) {
-        loader.remove();
-    }
+    if (loader) loader.remove();
 }
 
 function showSuccess(message) {
@@ -475,27 +439,21 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Current URL:', window.location.href);
     console.log('Is cart page:', isCartPage());
     
-    // Only load cart if we're on the cart page
     if (isCartPage()) {
         console.log('On cart page, loading cart data...');
         loadCart();
 
-        // Checkout button
         const checkoutBtn = document.querySelector('.btn-checkout');
         if (checkoutBtn) {
             checkoutBtn.addEventListener('click', goToCheckout);
         }
 
-        // Apply promo code button
         const applyBtn = document.querySelector('.btn-apply');
         if (applyBtn) {
             applyBtn.addEventListener('click', applyPromoCode);
         }
-    } else {
-        console.log('Not on cart page, skipping cart load');
     }
 
-    // Cart icon in header - redirect to cart page
     const cartIcons = document.querySelectorAll('.fa-shopping-cart');
     cartIcons.forEach(icon => {
         icon.style.cursor = 'pointer';
@@ -505,7 +463,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // User icon - redirect to profile or login
     const userIcons = document.querySelectorAll('.fa-user');
     userIcons.forEach(icon => {
         icon.style.cursor = 'pointer';
